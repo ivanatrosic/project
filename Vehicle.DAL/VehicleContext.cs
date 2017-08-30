@@ -8,7 +8,7 @@ namespace Vehicle.DAL
     public partial class VehicleContext : DbContext
     {
         public VehicleContext()
-            : base("name=VehicleContext")
+            : base("name=VehicleDatabase")
         {
         }
 
