@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Vehicle.DAL;
 
 namespace Vehicle.MVC.Controllers
 {
@@ -10,7 +11,9 @@ namespace Vehicle.MVC.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var entities = new VehicleContext();
+
+            return View(entities.VehicleMake.ToList());
         }
 
         public ActionResult About()

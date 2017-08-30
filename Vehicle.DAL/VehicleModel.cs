@@ -21,6 +21,8 @@ namespace Vehicle.DAL
         [StringLength(50)]
         public string Abrv { get; set; }
 
+
+
         public virtual VehicleMake VehicleMake { get; set; }
     }
 }

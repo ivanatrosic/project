@@ -177,7 +177,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -213,10 +215,6 @@
     <ProjectReference Include="..\Vehicle.DAL\Vehicle.DAL.csproj">
       <Project>{268EA2D0-E25E-4B4F-8740-3D6A1C79A646}</Project>
       <Name>Vehicle.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Vehicle.Service\Vehicle.Service.csproj">
-      <Project>{be0d1b69-05c4-42cf-9db1-d41af002e419}</Project>
-      <Name>Vehicle.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
