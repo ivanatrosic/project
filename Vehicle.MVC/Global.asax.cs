@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Vehicle.DAL;
-using System.Data.Entity;
+
 
 namespace Vehicle.MVC
 {
@@ -20,7 +20,7 @@ namespace Vehicle.MVC
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
 
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<VehicleContext>());
+            //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<VehicleContext>());
 
 
             //using (var ctx = new VehicleContext())
