@@ -11,9 +11,7 @@ namespace Vehicle.MVC.Controllers
     {
         public ActionResult Index()
         {
-            //var entities = new vehiclecontext();
-
-            //return view(entities.vehiclemake.tolist());
+            ViewBag.Message = "Your application description page.";
             return View();
         }
 
