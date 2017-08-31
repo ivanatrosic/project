@@ -11,9 +11,10 @@ namespace Vehicle.MVC.Controllers
     {
         public ActionResult Index()
         {
-            var entities = new VehicleContext();
+            //var entities = new vehiclecontext();
 
-            return View(entities.VehicleMake.ToList());
+            //return view(entities.vehiclemake.tolist());
+            return View();
         }
 
         public ActionResult About()
