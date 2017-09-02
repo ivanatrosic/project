@@ -162,7 +162,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\VehicleMakeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -209,7 +208,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\VehicleMake\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -232,6 +230,10 @@
     <ProjectReference Include="..\Vehicle.DAL\Vehicle.DAL.csproj">
       <Project>{268EA2D0-E25E-4B4F-8740-3D6A1C79A646}</Project>
       <Name>Vehicle.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vehicle.Repository\Vehicle.Repository.csproj">
+      <Project>{2cb1feb3-d4c2-445f-a1b5-fc333b6cf19a}</Project>
+      <Name>Vehicle.Repository</Name>
     </ProjectReference>
     <ProjectReference Include="..\Vehicle.Service\Vehicle.Service.csproj">
       <Project>{e0beb648-4b8a-4b2a-b1b6-4f5f711e9169}</Project>

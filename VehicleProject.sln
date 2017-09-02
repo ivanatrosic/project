@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vehicle.MVC", "Vehicle.MVC\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vehicle.Service", "Vehicle.Service\Vehicle.Service.csproj", "{E0BEB648-4B8A-4B2A-B1B6-4F5F711E9169}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vehicle.Repository", "Vehicle.Repository\Vehicle.Repository.csproj", "{2CB1FEB3-D4C2-445F-A1B5-FC333B6CF19A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{E0BEB648-4B8A-4B2A-B1B6-4F5F711E9169}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0BEB648-4B8A-4B2A-B1B6-4F5F711E9169}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0BEB648-4B8A-4B2A-B1B6-4F5F711E9169}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CB1FEB3-D4C2-445F-A1B5-FC333B6CF19A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CB1FEB3-D4C2-445F-A1B5-FC333B6CF19A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CB1FEB3-D4C2-445F-A1B5-FC333B6CF19A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CB1FEB3-D4C2-445F-A1B5-FC333B6CF19A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

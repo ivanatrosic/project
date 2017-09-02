@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E0BEB648-4B8A-4B2A-B1B6-4F5F711E9169}</ProjectGuid>
+    <ProjectGuid>{2CB1FEB3-D4C2-445F-A1B5-FC333B6CF19A}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Vehicle.Service</RootNamespace>
-    <AssemblyName>Vehicle.Service</AssemblyName>
+    <RootNamespace>Vehicle.Repository</RootNamespace>
+    <AssemblyName>Vehicle.Repository</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -49,25 +49,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IVehicleMakeService.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="IVehicleMakeRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VehicleMakeService.cs" />
+    <Compile Include="Repository.cs" />
+    <Compile Include="UnitOfWork.cs" />
+    <Compile Include="VehicleMakeRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Vehicle.DAL\Vehicle.DAL.csproj">
       <Project>{268ea2d0-e25e-4b4f-8740-3d6a1c79a646}</Project>
       <Name>Vehicle.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Vehicle.Repository\Vehicle.Repository.csproj">
-      <Project>{2cb1feb3-d4c2-445f-a1b5-fc333b6cf19a}</Project>
-      <Name>Vehicle.Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
