@@ -7,6 +7,9 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Vehicle.DAL;
 
+using Autofac.Integration.Mvc;
+using Autofac;
+using Vehicle.MVC.Module;
 
 namespace Vehicle.MVC
 {
@@ -19,14 +22,17 @@ namespace Vehicle.MVC
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            var builder = new Autofac.ContainerBuilder();
 
-            //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<VehicleContext>());
+            builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
 
+            builder.RegisterModule(new RepositoryModule());
+            builder.RegisterModule(new ServiceModule());
+            builder.RegisterModule(new EFModule());
 
-            //using (var ctx = new VehicleContext())
-            //{
-            //    ctx.Database.Initialize(false);
-            //}
+            var container = builder.Build();
+
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
         }
     }

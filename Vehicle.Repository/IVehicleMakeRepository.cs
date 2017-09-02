@@ -12,6 +12,8 @@ namespace Vehicle.Repository
     {
         VehicleMake GetById(int id);
         IEnumerable <VehicleMake> GetAll();
+        //IEnumerable<VehicleMake> SortVehicleMake(IEnumerable<VehicleMake> vehicleMake);
+        //IEnumerable<VehicleMake> SearchVehicleMake(string SearchString);
 
 
 
