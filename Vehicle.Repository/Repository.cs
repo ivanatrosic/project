@@ -49,7 +49,7 @@ namespace Vehicle.Repository
 
         public IEnumerable<T> Find<T>(Expression<Func<T, bool>> predicate) where T : class
         {
-            return Context.Set<T>().Where(predicate);
+            return Context.Set<T>().Where(predicate).ToList();
         }
     }
 }

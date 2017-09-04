@@ -16,14 +16,22 @@ namespace Vehicle.MVC.Controllers
 
         IVehicleMakeService Service;
 
+
         public VehicleMakeController(IVehicleMakeService service)
         {
             Service = service;
         }
+
+
         // GET: VehicleMake
-        public ActionResult Index()
+        public ActionResult Index(string filter)
         {
-            return View(Service.GetAll());
+            if (!String.IsNullOrEmpty(filter))
+            {
+               return View( Service.Filter(filter));
+            }
+           else
+                return View(Service.GetAll());
         }
 
         // GET: VehicleMake/Details/5

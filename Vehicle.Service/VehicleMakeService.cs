@@ -53,5 +53,11 @@ namespace Vehicle.Service
             return Repository.Find(predicate);
 
         }
+
+
+        public IEnumerable<VehicleMake> Filter( string filter)
+        {
+            return Repository.Filter(filter);
+        }
     }
 }

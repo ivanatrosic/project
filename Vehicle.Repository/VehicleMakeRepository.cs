@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Vehicle.DAL;
@@ -25,6 +27,13 @@ namespace Vehicle.Repository
         public IEnumerable<VehicleMake> GetAll()
         {
             return Context.Set<VehicleMake>().ToList();
+        }
+
+        public IEnumerable<VehicleMake> Filter(string filter)
+        {
+      
+                return Context.Set<VehicleMake>().Where(s => s.Name.Contains(filter) || s.Abrv.Contains(filter));
+ 
         }
 
         //    public void InsertVehicleMake(VehicleMake vehicleMake)

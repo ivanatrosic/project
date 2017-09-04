@@ -17,5 +17,7 @@ namespace Vehicle.Service
         void Delete(VehicleMake item);
         IEnumerable<VehicleMake> Find(Expression<Func<VehicleMake, bool>> predicate);
         IEnumerable<VehicleMake> GetAll();
+        IEnumerable<VehicleMake> Filter(string filter);
+
     }
 }
