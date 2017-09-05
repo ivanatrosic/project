@@ -18,6 +18,6 @@ namespace Vehicle.Service
         IEnumerable<VehicleMake> Find(Expression<Func<VehicleMake, bool>> predicate);
         IEnumerable<VehicleMake> GetAll();
         IEnumerable<VehicleMake> Filter(string filter);
-
+        IEnumerable<VehicleMake> Sort();
     }
 }

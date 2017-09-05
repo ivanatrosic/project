@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Vehicle.DAL;
@@ -13,8 +14,9 @@ namespace Vehicle.Repository
         VehicleMake GetById(int id);
         IEnumerable <VehicleMake> GetAll();
         IEnumerable<VehicleMake> Filter(string filter);
-        //IEnumerable<VehicleMake> SortVehicleMake(IEnumerable<VehicleMake> vehicleMake);
-        //IEnumerable<VehicleMake> SearchVehicleMake(string SearchString);
+        //IEnumerable<VehicleMake> Filter(string filter);
+        IEnumerable<VehicleMake> Sort();
+
 
 
 

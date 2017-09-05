@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -26,7 +27,8 @@ namespace Vehicle.MVC.Controllers
         // GET: VehicleMake
         public ActionResult Index(string filter)
         {
-            if (!String.IsNullOrEmpty(filter))
+ 
+            if (filter != null)
             {
                return View( Service.Filter(filter));
             }

@@ -36,6 +36,11 @@ namespace Vehicle.Repository
  
         }
 
+        public IEnumerable<VehicleMake> Sort()
+        {
+            return Context.Set<VehicleMake>().OrderBy(x => x.Name);
+        }
+
         //    public void InsertVehicleMake(VehicleMake vehicleMake)
         //    {
         //        context.VehicleMake.Add(vehicleMake);

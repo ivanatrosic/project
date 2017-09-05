@@ -55,9 +55,14 @@ namespace Vehicle.Service
         }
 
 
-        public IEnumerable<VehicleMake> Filter( string filter)
+        public IEnumerable<VehicleMake> Filter(string filter)
         {
             return Repository.Filter(filter);
+        }
+
+        public IEnumerable<VehicleMake> Sort()
+        {
+            return Repository.Sort();
         }
     }
 }
