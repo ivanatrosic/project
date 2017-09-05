@@ -9,7 +9,11 @@ namespace Vehicle.Repository
 {
     public interface IUnitOfWork :IDisposable
     {
-        int Complete();
+        Task<int> CommitAsync();
+
+        Task<int> InsertAsync<T>(T item) where T : class;
+        Task<int> UpdateAsync<T>(T item) where T : class;
+        Task<int> DeleteAsync<T>(T item) where T : class;
 
     }
 }

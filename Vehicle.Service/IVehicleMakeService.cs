@@ -11,13 +11,14 @@ namespace Vehicle.Service
 {
    public interface IVehicleMakeService
     {
-        VehicleMake GetById(int id);
-        void Insert(VehicleMake item);
-        void Update(VehicleMake item);
-        void Delete(VehicleMake item);
-        IEnumerable<VehicleMake> Find(Expression<Func<VehicleMake, bool>> predicate);
-        IEnumerable<VehicleMake> GetAll();
-        IEnumerable<VehicleMake> Filter(string filter);
-        IEnumerable<VehicleMake> Sort();
+ 
+        Task<int> InsertAsync(VehicleMake item);
+        Task<int> UpdateAsync(VehicleMake item);
+        Task<int> DeleteAsync(VehicleMake item);
+        Task<IEnumerable<VehicleMake>> FindAsync(Expression<Func<VehicleMake, bool>> predicate);
+        Task<IEnumerable<VehicleMake>> GetAllAsync();
+        Task<IEnumerable<VehicleMake>> FilterAsync(string filter);
+        Task<IEnumerable<VehicleMake>> SortAsync();
+
     }
 }

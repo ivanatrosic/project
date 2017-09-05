@@ -30,22 +30,22 @@ namespace Vehicle.MVC.Controllers
  
             if (filter != null)
             {
-               return View( Service.Filter(filter));
+               return View( Service.FilterAsync(filter));
             }
            else
-                return View(Service.GetAll());
+                return View(Service.GetAllAsync());
         }
 
         // GET: VehicleMake/Details/5
         public ActionResult Details(int id)
         {
 
-            VehicleMake vehicleMake = Service.GetById(id);
-            if (vehicleMake == null)
-            {
-                return HttpNotFound();
-            }
-            return View(vehicleMake);
+            //VehicleMake vehicleMake = Service.GetByIdAsync(id);
+            //if (vehicleMake == null)
+            //{
+            return HttpNotFound();
+            //}
+            //return View(vehicleMake);
         }
 
         // GET: VehicleMake/Create
@@ -63,7 +63,7 @@ namespace Vehicle.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                Service.Insert(vehicleMake);
+                Service.InsertAsync(vehicleMake);
                 return RedirectToAction("Index");
             }
 
@@ -73,13 +73,13 @@ namespace Vehicle.MVC.Controllers
         // GET: VehicleMake/Edit/5
         public ActionResult Edit(int id)
         {
-            VehicleMake vehicleMake = Service.GetById(id);
+            //VehicleMake vehicleMake = Service.GetByIdAsync(id);
 
-            if (vehicleMake == null)
-            {
-                return HttpNotFound();
-            }
-            return View(vehicleMake);
+            //if (vehicleMake == null)
+            //{
+               return HttpNotFound();
+            //}
+            //return View(vehicleMake);
         }
 
         // POST: VehicleMake/Edit/5
@@ -91,7 +91,7 @@ namespace Vehicle.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                Service.Update(vehicleMake);
+                Service.UpdateAsync(vehicleMake);
                 return RedirectToAction("Index");
             }
             return View(vehicleMake);
@@ -101,12 +101,12 @@ namespace Vehicle.MVC.Controllers
         public ActionResult Delete(int id)
         {
 
-            VehicleMake vehicleMake = Service.GetById(id);
-            if (vehicleMake == null)
-            {
-                return HttpNotFound();
-            }
-            return View(vehicleMake);
+            //VehicleMake vehicleMake = Service.GetByIdAsync(id);
+            //if (vehicleMake == null)
+            //{
+               return HttpNotFound();
+            //}
+            //return View(vehicleMake);
         }
 
         // POST: VehicleMake/Delete/5
@@ -114,9 +114,9 @@ namespace Vehicle.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            VehicleMake vehicleMake = Service.GetById(id);
-            Service.Delete(vehicleMake);
-            return RedirectToAction("Index");
+            //VehicleMake vehicleMake = Service.GetByIdAsync(id);
+            //Service.DeleteAsync(vehicleMake);
+           return RedirectToAction("Index");
         }
 
     }

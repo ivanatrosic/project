@@ -11,7 +11,7 @@ using Vehicle.Repository;
 
 namespace Vehicle.Repository
 {
-    public class VehicleMakeRepository : Repository<VehicleMake>, IVehicleMakeRepository
+    public class VehicleMakeRepository : Repository, IVehicleMakeRepository
     {
 
         public VehicleMakeRepository(DbContext context) : base(context)
@@ -19,26 +19,22 @@ namespace Vehicle.Repository
 
         }
 
-        public VehicleMake GetById(int id)
+
+        public async Task<IEnumerable<VehicleMake>> GetAllAsync()
         {
-            return Context.Set<VehicleMake>().Find(id);
+            return await Context.Set<VehicleMake>().ToListAsync();
         }
 
-        public IEnumerable<VehicleMake> GetAll()
-        {
-            return Context.Set<VehicleMake>().ToList();
-        }
-
-        public IEnumerable<VehicleMake> Filter(string filter)
+        public async Task<IEnumerable<VehicleMake>> FilterAsync(string filter)
         {
       
-                return Context.Set<VehicleMake>().Where(s => s.Name.Contains(filter) || s.Abrv.Contains(filter));
+                return await Context.Set<VehicleMake>().Where(s => s.Name.Contains(filter) || s.Abrv.Contains(filter)).ToListAsync();
  
         }
 
-        public IEnumerable<VehicleMake> Sort()
+        public async Task<IEnumerable<VehicleMake>> SortAsync()
         {
-            return Context.Set<VehicleMake>().OrderBy(x => x.Name);
+            return await Context.Set<VehicleMake>().OrderBy(x => x.Name).ToListAsync();
         }
 
         //    public void InsertVehicleMake(VehicleMake vehicleMake)

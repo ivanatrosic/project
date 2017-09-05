@@ -9,13 +9,13 @@ using Vehicle.Repository;
 
 namespace Vehicle.Repository
 {
-    public interface IVehicleMakeRepository : IRepository<VehicleMake>
+    public interface IVehicleMakeRepository : IRepository
     {
-        VehicleMake GetById(int id);
-        IEnumerable <VehicleMake> GetAll();
-        IEnumerable<VehicleMake> Filter(string filter);
+
+        Task<IEnumerable <VehicleMake>> GetAllAsync();
+        Task<IEnumerable<VehicleMake>> FilterAsync(string filter);
         //IEnumerable<VehicleMake> Filter(string filter);
-        IEnumerable<VehicleMake> Sort();
+        Task<IEnumerable<VehicleMake>> SortAsync();
 
 
 

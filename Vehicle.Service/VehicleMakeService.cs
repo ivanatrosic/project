@@ -11,7 +11,7 @@ namespace Vehicle.Service
 {
     class VehicleMakeService :IVehicleMakeService
     {
-        protected IVehicleMakeRepository Repository;
+        protected IVehicleMakeRepository Repository { get; private set; }
         protected IUnitOfWork UnitOfWork;
         public VehicleMakeService(IVehicleMakeRepository repository, IUnitOfWork unitOfWork)
         {
@@ -19,50 +19,48 @@ namespace Vehicle.Service
             UnitOfWork = unitOfWork;
         }
 
-        public void Delete(VehicleMake item)
+        public  Task<int> DeleteAsync(VehicleMake item)
         {
-            Repository.Delete(item);
-            UnitOfWork.Complete();
-        }
-
-
-        public void Insert(VehicleMake item)
-        {
-            Repository.Insert(item);
-            UnitOfWork.Complete();
-        }
-
-        public void Update(VehicleMake item)
-        {
-            Repository.Update(item);
-            UnitOfWork.Complete();
-
-        }
-        public VehicleMake GetById(int id)
-        {
-            return Repository.GetById(id);
-        }
-
-        public IEnumerable<VehicleMake> GetAll()
-        {
-            return Repository.GetAll();
-        }
-
-        public IEnumerable<VehicleMake> Find(Expression<Func<VehicleMake, bool>> predicate)
-        {
-            return Repository.Find(predicate);
+            return Repository.DeleteAsync(item);
 
         }
 
 
-        public IEnumerable<VehicleMake> Filter(string filter)
+        public Task<int> InsertAsync(VehicleMake item)
         {
-            return Repository.Filter(filter);
+            return Repository.InsertAsync(item);
         }
 
-        public IEnumerable<VehicleMake> Sort()
+        public Task<int> UpdateAsync(VehicleMake item)
         {
-            return Repository.Sort();
+            return Repository.UpdateAsync(item);
+            
+
         }
+
+
+        public Task<IEnumerable<VehicleMake>> GetAllAsync()
+        {
+            return Repository.GetAllAsync();
+        }
+
+        public Task<IEnumerable<VehicleMake>> FindAsync(Expression<Func<VehicleMake, bool>> predicate)
+        {
+            return Repository.FindAsync(predicate);
+
+        }
+
+
+        public Task<IEnumerable<VehicleMake>> FilterAsync(string filter)
+        {
+            return Repository.FilterAsync(filter);
+        }
+
+        public Task<IEnumerable<VehicleMake>> SortAsync()
+        {
+            return Repository.SortAsync();
+        }
+
+
     }
 }

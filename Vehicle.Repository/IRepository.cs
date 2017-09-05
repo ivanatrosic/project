@@ -7,13 +7,14 @@ using System.Linq.Expressions;
 
 namespace Vehicle.Repository
 {
-    public interface IRepository<Tcontext>
+    public interface IRepository
     {
         //T GetById<T>(int id) where T : class;
-        void Insert<T>(T item) where T : class;
-        void Update<T>(T item) where T : class;
-        void Delete<T>(T item) where T : class;
-        IEnumerable<T> Find<T>(Expression<Func<T, bool>> predicate) where T : class;
+        Task<int> InsertAsync<T>(T item) where T : class;
+        Task<int> UpdateAsync<T>(T item) where T : class;
+        Task<int> DeleteAsync<T>(T item) where T : class;
+        Task<T> GetOneAsync<T>(string ID) where T : class;
+        Task<IEnumerable<T>> FindAsync<T>(Expression<Func<T, bool>> predicate) where T : class;
         //IEnumerable<T> GetAll<T>() where T : class;
     }
 }

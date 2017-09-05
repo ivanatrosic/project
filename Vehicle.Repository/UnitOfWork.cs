@@ -5,30 +5,51 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vehicle.DAL;
+using System.Transactions;
 
 
 namespace Vehicle.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private DbContext _context;
-        public UnitOfWork(DbContext Context)
+        private DbContext Context;
+        public UnitOfWork(DbContext context)
         {
-            _context = Context;
+            Context = context;
         }
 
-
-
-        public int Complete()
+        public async Task<int> CommitAsync()
         {
-            return _context.SaveChanges();
+            using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                await Context.SaveChangesAsync();
+                scope.Complete();
+                return 0;
+            }
         }
 
-        public void Dispose ()
+        public Task<int> DeleteAsync<T>(T item) where T : class
         {
-            _context.Dispose();
+            Context.Entry(item).State = EntityState.Deleted;
+            return Task.FromResult(1);
+
         }
 
+        public void Dispose()
+        {
+            Context.Dispose();
+        }
 
+        public Task<int> InsertAsync<T>(T item) where T : class
+        {
+            Context.Entry(item).State = EntityState.Added;
+            return Task.FromResult(1);
+        }
+
+        public Task<int> UpdateAsync<T>(T item) where T : class
+        {
+            Context.Entry(item).State = EntityState.Modified;
+            return Task.FromResult(1);
+        }
     }
 }
