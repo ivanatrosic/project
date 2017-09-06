@@ -2,122 +2,140 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Net;
-using System.Web;
-using System.Web.Mvc;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Description;
+using System.Threading.Tasks;
 using Vehicle.DAL;
 using Vehicle.Service;
 
 namespace Vehicle.MVC.Controllers
 {
-    public class VehicleMakeController : Controller
+    public class VehicleMakeController : ApiController
     {
-
-        IVehicleMakeService Service;
-
-
-        public VehicleMakeController(IVehicleMakeService service)
+        private IVehicleMakeService VMService { get; set; }
+        public VehicleMakeController(IVehicleMakeService vehicleMakeService)
         {
-            Service = service;
+            VMService = vehicleMakeService;
         }
 
+        private VehicleContext db = new VehicleContext();
 
-        // GET: VehicleMake
-        public ActionResult Index(string filter)
+        // GET: api/VehicleMake
+        public IQueryable<VehicleMake> GetVehicleMake()
         {
- 
-            if (filter != null)
+            return db.VehicleMake;
+        }
+
+        // GET: api/VehicleMake/5
+        [ResponseType(typeof(VehicleMake))]
+        public IHttpActionResult GetVehicleMake(int id)
+        {
+            VehicleMake vehicleMake = db.VehicleMake.Find(id);
+            if (vehicleMake == null)
             {
-               return View( Service.FilterAsync(filter));
-            }
-           else
-                return View(Service.GetAllAsync());
-        }
-
-        // GET: VehicleMake/Details/5
-        public ActionResult Details(int id)
-        {
-
-            //VehicleMake vehicleMake = Service.GetByIdAsync(id);
-            //if (vehicleMake == null)
-            //{
-            return HttpNotFound();
-            //}
-            //return View(vehicleMake);
-        }
-
-        // GET: VehicleMake/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: VehicleMake/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Abrv")] VehicleMake vehicleMake)
-        {
-            if (ModelState.IsValid)
-            {
-                Service.InsertAsync(vehicleMake);
-                return RedirectToAction("Index");
+                return NotFound();
             }
 
-            return View(vehicleMake);
+            return Ok(vehicleMake);
         }
 
-        // GET: VehicleMake/Edit/5
-        public ActionResult Edit(int id)
+        // PUT: api/VehicleMake/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutVehicleMake(int id, VehicleMake vehicleMake)
         {
-            //VehicleMake vehicleMake = Service.GetByIdAsync(id);
-
-            //if (vehicleMake == null)
-            //{
-               return HttpNotFound();
-            //}
-            //return View(vehicleMake);
-        }
-
-        // POST: VehicleMake/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Abrv")] VehicleMake vehicleMake)
-        {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                Service.UpdateAsync(vehicleMake);
-                return RedirectToAction("Index");
+                return BadRequest(ModelState);
             }
-            return View(vehicleMake);
+
+            if (id != vehicleMake.Id)
+            {
+                return BadRequest();
+            }
+
+            db.Entry(vehicleMake).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!VehicleMakeExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // GET: VehicleMake/Delete/5
-        public ActionResult Delete(int id)
+        // POST: api/VehicleMake
+        [ResponseType(typeof(VehicleMake))]
+        public IHttpActionResult PostVehicleMake(VehicleMake vehicleMake)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            //VehicleMake vehicleMake = Service.GetByIdAsync(id);
-            //if (vehicleMake == null)
-            //{
-               return HttpNotFound();
-            //}
-            //return View(vehicleMake);
+            db.VehicleMake.Add(vehicleMake);
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                if (VehicleMakeExists(vehicleMake.Id))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return CreatedAtRoute("DefaultApi", new { id = vehicleMake.Id }, vehicleMake);
         }
 
-        // POST: VehicleMake/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        // DELETE: api/VehicleMake/5
+        [ResponseType(typeof(VehicleMake))]
+        public IHttpActionResult DeleteVehicleMake(int id)
         {
-            //VehicleMake vehicleMake = Service.GetByIdAsync(id);
-            //Service.DeleteAsync(vehicleMake);
-           return RedirectToAction("Index");
+            VehicleMake vehicleMake = db.VehicleMake.Find(id);
+            if (vehicleMake == null)
+            {
+                return NotFound();
+            }
+
+            db.VehicleMake.Remove(vehicleMake);
+            db.SaveChanges();
+
+            return Ok(vehicleMake);
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        private bool VehicleMakeExists(int id)
+        {
+            return db.VehicleMake.Count(e => e.Id == id) > 0;
+        }
     }
 }

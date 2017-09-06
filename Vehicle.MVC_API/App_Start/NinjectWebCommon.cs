@@ -1,7 +1,7 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Vehicle.MVC.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Vehicle.MVC.App_Start.NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Vehicle.MVC_API.App_Start.NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Vehicle.MVC_API.App_Start.NinjectWebCommon), "Stop")]
 
-namespace Vehicle.MVC.App_Start
+namespace Vehicle.MVC_API.App_Start
 {
     using System;
     using System.Web;
@@ -46,6 +46,7 @@ namespace Vehicle.MVC.App_Start
             var kernel = new StandardKernel(settings);
             try
             {
+
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
