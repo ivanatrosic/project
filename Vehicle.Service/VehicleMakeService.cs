@@ -44,10 +44,14 @@ namespace Vehicle.Service
             return Repository.GetAllAsync();
         }
 
-        public Task<IEnumerable<VehicleMake>> FindAsync(Expression<Func<VehicleMake, bool>> predicate)
-        {
-            return Repository.FindAsync(predicate);
+        //public Task<IEnumerable<VehicleMake>> FindAsync(Expression<Func<VehicleMake, bool>> predicate)
+        //{
+        //    return Repository.FindAsync(predicate);
 
+        //}
+        public Task<VehicleMake> GetOneAsync(int ID)
+        {
+            return Repository.GetOneAsync<VehicleMake>(ID);
         }
 
 

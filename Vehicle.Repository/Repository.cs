@@ -24,7 +24,7 @@ namespace Vehicle.Repository
             return await Context.SaveChangesAsync();
         }
 
-        public Task<T> GetOneAsync<T>(string ID) where T : class
+        public Task<T> GetOneAsync<T>(int ID) where T : class
         {
             return Context.Set<T>().FindAsync(ID);
         }
@@ -51,10 +51,10 @@ namespace Vehicle.Repository
         //    return Context.Set<T>().ToList();
         //}
 
-        public async Task<IEnumerable<T>> FindAsync<T>(Expression<Func<T, bool>> predicate) where T : class
-        {
-            return await Context.Set<T>().Where(predicate).ToListAsync();
-        }
+        //public async Task<IEnumerable<T>> FindAsync<T>(Expression<Func<T, bool>> predicate) where T : class
+        //{
+        //    return await Context.Set<T>().Where(predicate).ToListAsync();
+        //}
 
         public virtual IQueryable<T> WhereAsync<T>() where T : class
         {

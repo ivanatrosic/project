@@ -6,11 +6,12 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using System.Threading.Tasks;
-using Vehicle.DAL;
 using Vehicle.Service;
+using Vehicle.DAL;
+using System.Linq.Expressions;
 
 namespace Vehicle.MVC.Controllers
 {
@@ -22,30 +23,30 @@ namespace Vehicle.MVC.Controllers
             VMService = vehicleMakeService;
         }
 
-        private VehicleContext db = new VehicleContext();
-
+        [HttpGet]
         // GET: api/VehicleMake
-        public IQueryable<VehicleMake> GetVehicleMake()
+        public Task<IEnumerable<VehicleMake>> GetVehicleMake()
         {
-            return db.VehicleMake;
+            return VMService.GetAllAsync();
         }
 
+        [HttpGet]
         // GET: api/VehicleMake/5
         [ResponseType(typeof(VehicleMake))]
-        public IHttpActionResult GetVehicleMake(int id)
+        public async Task<IHttpActionResult> GetVehicleMake(int id)
         {
-            VehicleMake vehicleMake = db.VehicleMake.Find(id);
-            if (vehicleMake == null)
+            VehicleMake x = await VMService.GetOneAsync(id);
+            if (x == null)
             {
                 return NotFound();
             }
 
-            return Ok(vehicleMake);
+            return Ok(x);
         }
-
+        [HttpPut]
         // PUT: api/VehicleMake/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutVehicleMake(int id, VehicleMake vehicleMake)
+        public async Task<IHttpActionResult> PutVehicleMake(int id, VehicleMake vehicleMake)
         {
             if (!ModelState.IsValid)
             {
@@ -54,88 +55,66 @@ namespace Vehicle.MVC.Controllers
 
             if (id != vehicleMake.Id)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            db.Entry(vehicleMake).State = EntityState.Modified;
-
-            try
+            var x = await VMService.UpdateAsync(vehicleMake);
+            if ( x == 1 )
             {
-                db.SaveChanges();
+                return Ok(vehicleMake);
+
             }
-            catch (DbUpdateConcurrencyException)
+            else
             {
-                if (!VehicleMakeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return StatusCode(HttpStatusCode.InternalServerError);
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
         }
-
+        [HttpPost]
         // POST: api/VehicleMake
         [ResponseType(typeof(VehicleMake))]
-        public IHttpActionResult PostVehicleMake(VehicleMake vehicleMake)
+        public async Task<IHttpActionResult> PostVehicleMake(VehicleMake vehicleMake)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.VehicleMake.Add(vehicleMake);
+            var x = await VMService.InsertAsync(vehicleMake);
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (VehicleMakeExists(vehicleMake.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            if (x != 0)
+                return Ok(x);
 
             return CreatedAtRoute("DefaultApi", new { id = vehicleMake.Id }, vehicleMake);
         }
 
+        [HttpDelete]
         // DELETE: api/VehicleMake/5
         [ResponseType(typeof(VehicleMake))]
-        public IHttpActionResult DeleteVehicleMake(int id)
+        public async Task<IHttpActionResult> DeleteVehicleMake(int id)
         {
-            VehicleMake vehicleMake = db.VehicleMake.Find(id);
+            VehicleMake vehicleMake = await VMService.GetOneAsync(id);
             if (vehicleMake == null)
             {
                 return NotFound();
             }
 
-            db.VehicleMake.Remove(vehicleMake);
-            db.SaveChanges();
-
+            await VMService.DeleteAsync(vehicleMake);
             return Ok(vehicleMake);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
 
-        private bool VehicleMakeExists(int id)
-        {
-            return db.VehicleMake.Count(e => e.Id == id) > 0;
-        }
+        //private bool VehicleMakeExists(int id)
+        //{
+        //    return db.VehicleMake.Count(e => e.Id == id) > 0;
+        //}
     }
 }

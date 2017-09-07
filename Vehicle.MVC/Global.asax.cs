@@ -7,7 +7,6 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Vehicle.DAL;
 using System.Web.Http;
-using System.Web.Routing;
 using Autofac.Integration.Mvc;
 using Autofac;
 using Vehicle.MVC.Module;

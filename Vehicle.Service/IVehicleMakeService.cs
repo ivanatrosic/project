@@ -15,10 +15,11 @@ namespace Vehicle.Service
         Task<int> InsertAsync(VehicleMake item);
         Task<int> UpdateAsync(VehicleMake item);
         Task<int> DeleteAsync(VehicleMake item);
-        Task<IEnumerable<VehicleMake>> FindAsync(Expression<Func<VehicleMake, bool>> predicate);
+        //Task<IEnumerable<VehicleMake>> FindAsync(Expression<Func<VehicleMake, bool>> predicate);
         Task<IEnumerable<VehicleMake>> GetAllAsync();
         Task<IEnumerable<VehicleMake>> FilterAsync(string filter);
         Task<IEnumerable<VehicleMake>> SortAsync();
+        Task<VehicleMake> GetOneAsync(int ID);
 
     }
 }
