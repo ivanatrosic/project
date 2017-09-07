@@ -25,11 +25,28 @@ namespace Vehicle.MVC.Controllers
 
         [HttpGet]
         // GET: api/VehicleMake
-        public Task<IEnumerable<VehicleMake>> GetVehicleMake()
+        public Task<IEnumerable<VehicleMake>> GetVehicleMake(string order)
         {
-            return VMService.GetAllAsync();
-        }
+            if (order == "name")
+                return VMService.SortAsync();
 
+            return VMService.GetAllAsync();
+           
+           
+        }
+        [HttpGet]
+        // GET: api/VehicleMake
+        public async Task<IHttpActionResult> GetFilterVehicleMake(string filter)
+        {
+            IEnumerable< VehicleMake> x = await VMService.FilterAsync(filter);
+
+            if (x == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(x);
+        }
         [HttpGet]
         // GET: api/VehicleMake/5
         [ResponseType(typeof(VehicleMake))]
