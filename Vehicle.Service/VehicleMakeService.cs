@@ -9,14 +9,14 @@ using System.Linq.Expressions;
 
 namespace Vehicle.Service
 {
-    class VehicleMakeService :IVehicleMakeService
+    public class VehicleMakeService :IVehicleMakeService
     {
         protected IVehicleMakeRepository Repository { get; private set; }
-        protected IUnitOfWork UnitOfWork;
-        public VehicleMakeService(IVehicleMakeRepository repository, IUnitOfWork unitOfWork)
+
+        public VehicleMakeService(IVehicleMakeRepository repository)
         {
             Repository = repository;
-            UnitOfWork = unitOfWork;
+  
         }
 
         public  Task<int> DeleteAsync(VehicleMake item)
@@ -51,7 +51,7 @@ namespace Vehicle.Service
         //}
         public Task<VehicleMake> GetOneAsync(int ID)
         {
-            return Repository.GetOneAsync<VehicleMake>(ID);
+            return Repository.GetOneAsync(ID);
         }
 
 
@@ -60,11 +60,14 @@ namespace Vehicle.Service
             return Repository.FilterAsync(filter);
         }
 
-        public Task<IEnumerable<VehicleMake>> SortAsync()
+        //public Task<IEnumerable<VehicleMake>> SortAsync()
+        //{
+        //    return Repository.SortAsync();
+        //}
+
+        public Task<int> DeleteAsync(int id)
         {
-            return Repository.SortAsync();
+            return Repository.DeleteAsync(id);
         }
-
-
     }
 }

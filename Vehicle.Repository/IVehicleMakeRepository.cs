@@ -9,13 +9,18 @@ using Vehicle.Repository;
 
 namespace Vehicle.Repository
 {
-    public interface IVehicleMakeRepository : IRepository
+    public interface IVehicleMakeRepository
     {
 
         Task<IEnumerable <VehicleMake>> GetAllAsync();
         Task<IEnumerable<VehicleMake>> FilterAsync(string filter);
-        //IEnumerable<VehicleMake> Filter(string filter);
-        Task<IEnumerable<VehicleMake>> SortAsync();
+        //Task<IEnumerable<VehicleMake>> SortAsync();
+        Task<int> InsertAsync(VehicleMake item);
+
+        Task<int> UpdateAsync(VehicleMake item);
+        Task<VehicleMake> GetOneAsync(int id);
+        Task<int> DeleteAsync(VehicleMake item);
+        Task<int> DeleteAsync(int id);
 
 
 

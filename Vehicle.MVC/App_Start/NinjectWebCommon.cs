@@ -10,7 +10,10 @@ namespace Vehicle.MVC.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
-    using System.Linq;
+    using Vehicle.Repository;
+    using Vehicle.Service;
+
+    using System.Data.Entity;
 
     public static class NinjectWebCommon 
     {
@@ -40,10 +43,7 @@ namespace Vehicle.MVC.App_Start
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-            var settings = new NinjectSettings();
-            settings.LoadExtensions = true;
-            settings.ExtensionSearchPatterns = settings.ExtensionSearchPatterns.Union(new string[] { "Vehicle.*.dll" }).ToArray();
-            var kernel = new StandardKernel(settings);
+            var kernel = new StandardKernel();
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
@@ -65,6 +65,15 @@ namespace Vehicle.MVC.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-        }        
+            kernel.Bind<IRepository>().To<Repository>();
+            kernel.Bind<IVehicleMakeRepository>().To<VehicleMakeRepository>();
+            kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
+
+
+            kernel.Bind<IVehicleMakeService>().To<VehicleMakeService>();
+ 
+
+
+        }
     }
 }

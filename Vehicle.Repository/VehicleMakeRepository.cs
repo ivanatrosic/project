@@ -11,31 +11,58 @@ using Vehicle.Repository;
 
 namespace Vehicle.Repository
 {
-    public class VehicleMakeRepository : Repository, IVehicleMakeRepository
+    public class VehicleMakeRepository : IVehicleMakeRepository
     {
-
-        public VehicleMakeRepository(DbContext context) : base(context)
+        protected IRepository Repository { get; set; }
+        public VehicleMakeRepository(IRepository repository)
         {
-
+            Repository = repository;
         }
 
 
         public async Task<IEnumerable<VehicleMake>> GetAllAsync()
         {
-            return await Context.Set<VehicleMake>().ToListAsync();
+            return await Repository.WhereAsync<VehicleMake>().ToListAsync();
         }
 
         public async Task<IEnumerable<VehicleMake>> FilterAsync(string filter)
         {
       
-                return await Context.Set<VehicleMake>().Where(s => s.Name.Contains(filter) || s.Abrv.Contains(filter)).ToListAsync();
+                return await Repository.FindAsync<VehicleMake>(s => s.Name.Contains(filter) || s.Abrv.Contains(filter));
  
         }
 
-        public async Task<IEnumerable<VehicleMake>> SortAsync()
+        //public async Task<IEnumerable<VehicleMake>> SortAsync()
+        //{
+        //    return await Repository.OrderAsync<VehicleMake>(s => s.Name);
+        //}
+
+        public Task<int> InsertAsync(VehicleMake item)
         {
-            return await Context.Set<VehicleMake>().OrderBy(x => x.Name).ToListAsync();
+            return Repository.InsertAsync(item);
         }
+
+        public Task<int> UpdateAsync(VehicleMake item)
+        {
+            return Repository.InsertAsync<VehicleMake>(item);
+        }
+
+        public Task<int> DeleteAsync(VehicleMake item)
+        {
+            return Repository.DeleteAsync<VehicleMake>(item);
+        }
+
+        public Task<int> DeleteAsync(int id)
+        { 
+            return Repository.DeleteAsync<VehicleMake>(id);
+        }
+
+        public Task<VehicleMake> GetOneAsync(int id) 
+        {
+            return Repository.GetOneAsync<VehicleMake>(id);
+        }
+
+
 
 
 

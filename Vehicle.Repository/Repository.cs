@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Linq.Expressions;
+using Vehicle.DAL;
 
 namespace Vehicle.Repository
 {
     public class Repository : IRepository
     {
-        protected DbContext Context;
-        public Repository(DbContext context)
+        protected VehicleContext Context { get; private set; }
+        public Repository(VehicleContext context)
         {
             Context = context;
         }
@@ -22,6 +23,13 @@ namespace Vehicle.Repository
         {
             Context.Entry(item).State = EntityState.Deleted;
             return await Context.SaveChangesAsync();
+        }
+
+        public async Task<int> DeleteAsync<T>(int id) where T : class
+        {
+            var x = await GetOneAsync<T>(id);
+
+            return await DeleteAsync(x);
         }
 
         public Task<T> GetOneAsync<T>(int ID) where T : class
@@ -51,14 +59,20 @@ namespace Vehicle.Repository
         //    return Context.Set<T>().ToList();
         //}
 
-        //public async Task<IEnumerable<T>> FindAsync<T>(Expression<Func<T, bool>> predicate) where T : class
-        //{
-        //    return await Context.Set<T>().Where(predicate).ToListAsync();
-        //}
+        public async Task<IEnumerable<T>> FindAsync<T>(Expression<Func<T, bool>> predicate) where T : class
+        {
+            return await Context.Set<T>().Where(predicate).ToListAsync();
+        }
 
         public virtual IQueryable<T> WhereAsync<T>() where T : class
         {
             return Context.Set<T>().AsNoTracking();
+        }
+
+        public async Task<int> OrderAsync<T>(Expression<Func<T, bool>> predicate ) where T : class
+        {
+            Context.Set<T>().OrderBy(predicate);
+            return await Context.SaveChangesAsync();
         }
     }
 }

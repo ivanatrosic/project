@@ -6,11 +6,14 @@ namespace Vehicle.DAL
     using System.Linq;
     using SqlProviderServices = System.Data.Entity.SqlServer.SqlProviderServices;
 
-    public partial class VehicleContext : DbContext
+    public partial class VehicleContext : DbContext, IVehicleContext
     {
+
         public VehicleContext()
             : base("name=VehicleDatabase")
         {
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
         }
 
         public virtual DbSet<VehicleMake> VehicleMake { get; set; }
