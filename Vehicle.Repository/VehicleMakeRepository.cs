@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Vehicle.DAL;
 using Vehicle.Repository;
+using AutoMapper;
+using Vehicle.Models;
 
 namespace Vehicle.Repository
 {
@@ -20,36 +22,40 @@ namespace Vehicle.Repository
         }
 
 
-        public async Task<IEnumerable<VehicleMake>> GetAllAsync()
+        public async Task<IEnumerable<IVehicleMake>> GetAllAsync()
         {
-            return await Repository.WhereAsync<VehicleMake>().ToListAsync();
+            return Mapper.Map <IEnumerable<IVehicleMake>> (await Repository.WhereAsync<VehicleMake>().ToListAsync<VehicleMake>());
         }
 
-        public async Task<IEnumerable<VehicleMake>> FilterAsync(string filter)
+        public async Task<IVehicleMake> GetAsync(int id)
         {
-      
-                return await Repository.FindAsync<VehicleMake>(s => s.Name.Contains(filter) || s.Abrv.Contains(filter));
- 
+            return Mapper.Map<IVehicleMake>(await Repository.GetOneAsync<VehicleMake>(id));
         }
 
-        //public async Task<IEnumerable<VehicleMake>> SortAsync()
-        //{
-        //    return await Repository.OrderAsync<VehicleMake>(s => s.Name);
-        //}
-
-        public Task<int> InsertAsync(VehicleMake item)
+        public async Task<IEnumerable<IVehicleMake>> FilterAsync(string filter)
         {
-            return Repository.InsertAsync(item);
+            return Mapper.Map<IEnumerable<IVehicleMake>>(await Repository.FindAsync<VehicleMake>(s => s.Name.Contains(filter) || s.Abrv.Contains(filter)));
         }
 
-        public Task<int> UpdateAsync(VehicleMake item)
+        public async Task<IEnumerable<IVehicleMake>> SortAsync()
         {
-            return Repository.InsertAsync<VehicleMake>(item);
+            return Mapper.Map < IEnumerable < IVehicleMake >> (await Repository.WhereAsync<VehicleMake>().OrderBy(x=> x.Name).ToListAsync());
         }
 
-        public Task<int> DeleteAsync(VehicleMake item)
+        public Task<int> InsertAsync(IVehicleMake item)
         {
-            return Repository.DeleteAsync<VehicleMake>(item);
+            return Repository.InsertAsync<VehicleMake>(Mapper.Map<VehicleMake>(item));
+        }
+
+
+        public Task<int> UpdateAsync(IVehicleMake item)
+        {
+            return Repository.UpdateAsync <VehicleMake>(Mapper.Map<VehicleMake>(item));
+        }
+
+        public Task<int> DeleteAsync(IVehicleMake item)
+        {
+            return Repository.DeleteAsync<VehicleMake>(Mapper.Map<VehicleMake>(item));
         }
 
         public Task<int> DeleteAsync(int id)
@@ -57,10 +63,7 @@ namespace Vehicle.Repository
             return Repository.DeleteAsync<VehicleMake>(id);
         }
 
-        public Task<VehicleMake> GetOneAsync(int id) 
-        {
-            return Repository.GetOneAsync<VehicleMake>(id);
-        }
+ 
 
 
 

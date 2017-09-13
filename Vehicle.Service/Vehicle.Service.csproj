@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0-beta1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -80,6 +83,10 @@
     <ProjectReference Include="..\Vehicle.DAL\Vehicle.DAL.csproj">
       <Project>{268ea2d0-e25e-4b4f-8740-3d6a1c79a646}</Project>
       <Name>Vehicle.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vehicle.Models\Vehicle.Models.csproj">
+      <Project>{B0637B53-751E-4F30-81A9-8A6226821EE9}</Project>
+      <Name>Vehicle.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\Vehicle.Repository\Vehicle.Repository.csproj">
       <Project>{2cb1feb3-d4c2-445f-a1b5-fc333b6cf19a}</Project>

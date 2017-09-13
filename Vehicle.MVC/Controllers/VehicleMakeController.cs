@@ -22,6 +22,7 @@ namespace Vehicle.MVC.Controllers
             VMService = vehicleMakeService;
         }
 
+
         [HttpGet]
         // GET: api/VehicleMake
         public async Task<IHttpActionResult> GetVehicleMake()
@@ -39,24 +40,24 @@ namespace Vehicle.MVC.Controllers
            
         }
         [HttpGet]
-        // GET: api/VehicleMake
-        //public async Task<IHttpActionResult> GetFilterVehicleMake(string filter)
-        //{
-        //    var x = await VMService.FilterAsync(filter);
+        //GET: api/VehicleMake
+        public async Task<IHttpActionResult> GetFilterVehicleMake(string filter)
+        {
+            var x = await VMService.FilterAsync(filter);
 
-        //    if (x == null)
-        //    {
-        //        return NotFound();
-        //    }
+            if (x == null)
+            {
+                return NotFound();
+            }
 
-        //    return Ok(x);
-        //}
+            return Ok(x);
+        }
 
-        //[HttpGet]
-        // GET: api/VehicleMake/5
+        [HttpGet]
+        //GET: api/VehicleMake/5
         public async Task<IHttpActionResult> GetVehicleMake(int id)
         {
-            var x = await VMService.GetOneAsync(id);
+            var x = await VMService.GetAsync(id);
             if (x == null)
             {
                 return NotFound();
@@ -109,9 +110,9 @@ namespace Vehicle.MVC.Controllers
         //    return CreatedAtRoute("DefaultApi", new { id = vehicleMake.Id }, vehicleMake);
         //}
 
-        //[HttpDelete]
+        [HttpDelete]
         // DELETE: api/VehicleMake/5
-        
+
         public async Task<IHttpActionResult> DeleteVehicleMake(int id)
         {
             var x = await VMService.DeleteAsync(id);

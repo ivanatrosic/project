@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Vehicle.DAL;
+using System.Threading.Tasks;
 using System.Transactions;
 
 
@@ -12,8 +13,8 @@ namespace Vehicle.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private DbContext Context;
-        public UnitOfWork(DbContext context)
+        private IVehicleContext Context;
+        public UnitOfWork(IVehicleContext context)
         {
             Context = context;
         }
@@ -33,6 +34,16 @@ namespace Vehicle.Repository
             Context.Entry(item).State = EntityState.Deleted;
             return Task.FromResult(1);
 
+        }
+
+        public Task<int> DeleteAsync<T>(int id) where T : class
+        {
+            var x = Context.Set<T>().Find(id);
+            if (x == null)
+            {
+                return Task.FromResult(0);
+            }
+            return DeleteAsync<T>(x);
         }
 
         public void Dispose()

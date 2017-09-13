@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using Vehicle.DAL;
+using Vehicle.Models;
 using Vehicle.Repository;
 
 namespace Vehicle.Repository
@@ -12,14 +12,14 @@ namespace Vehicle.Repository
     public interface IVehicleMakeRepository
     {
 
-        Task<IEnumerable <VehicleMake>> GetAllAsync();
-        Task<IEnumerable<VehicleMake>> FilterAsync(string filter);
-        //Task<IEnumerable<VehicleMake>> SortAsync();
-        Task<int> InsertAsync(VehicleMake item);
+        Task<IEnumerable<IVehicleMake>> GetAllAsync();
+        Task<IEnumerable<IVehicleMake>> FilterAsync(string filter);
+        Task<IEnumerable<IVehicleMake>> SortAsync();
+        Task<int> InsertAsync(IVehicleMake item);
 
-        Task<int> UpdateAsync(VehicleMake item);
-        Task<VehicleMake> GetOneAsync(int id);
-        Task<int> DeleteAsync(VehicleMake item);
+        Task<int> UpdateAsync(IVehicleMake item);
+        Task<IVehicleMake> GetAsync(int id);
+        Task<int> DeleteAsync(IVehicleMake item);
         Task<int> DeleteAsync(int id);
 
 

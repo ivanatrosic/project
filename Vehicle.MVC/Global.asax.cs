@@ -5,11 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Vehicle.DAL;
+using Vehicle.Models;
 using System.Web.Http;
-using Autofac.Integration.Mvc;
-using Autofac;
-using Vehicle.MVC.Module;
+using Vehicle.MVC.App_Start;
 
 namespace Vehicle.MVC
 {
@@ -22,19 +20,8 @@ namespace Vehicle.MVC
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-            //var builder = new Autofac.ContainerBuilder();
-
-            //builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
-
-            //builder.RegisterModule(new RepositoryModule());
-            //builder.RegisterModule(new ServiceModule());
-            //builder.RegisterModule(new EFModule());
-
-            //var container = builder.Build();
-
-            //DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-
+            AutoMapper.Mapper.Initialize(cfg => cfg.AddProfile<AutoMaperModels>());
+ 
         }
     }
 }

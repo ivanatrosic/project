@@ -276,6 +276,10 @@
       <Project>{268EA2D0-E25E-4B4F-8740-3D6A1C79A646}</Project>
       <Name>Vehicle.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Vehicle.Models\Vehicle.Models.csproj">
+      <Project>{B0637B53-751E-4F30-81A9-8A6226821EE9}</Project>
+      <Name>Vehicle.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Vehicle.Repository\Vehicle.Repository.csproj">
       <Project>{2cb1feb3-d4c2-445f-a1b5-fc333b6cf19a}</Project>
       <Name>Vehicle.Repository</Name>

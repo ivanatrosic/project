@@ -46,11 +46,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.0.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.0.1\lib\net45\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.Mvc5.4.0.2\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -188,6 +185,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
@@ -197,9 +195,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Module\EFModule.cs" />
-    <Compile Include="Module\RepositoryModule.cs" />
-    <Compile Include="Module\ServiceModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1049,6 +1044,10 @@
     <ProjectReference Include="..\Vehicle.DAL\Vehicle.DAL.csproj">
       <Project>{268EA2D0-E25E-4B4F-8740-3D6A1C79A646}</Project>
       <Name>Vehicle.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vehicle.Models\Vehicle.Models.csproj">
+      <Project>{b0637b53-751e-4f30-81a9-8a6226821ee9}</Project>
+      <Name>Vehicle.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\Vehicle.Repository\Vehicle.Repository.csproj">
       <Project>{2cb1feb3-d4c2-445f-a1b5-fc333b6cf19a}</Project>

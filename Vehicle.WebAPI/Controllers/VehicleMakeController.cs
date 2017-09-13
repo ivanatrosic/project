@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Vehicle.DAL;
+using Vehicle.Models;
 using Vehicle.Service;
 
 namespace Vehicle.WebAPI.Controllers
@@ -39,7 +40,7 @@ namespace Vehicle.WebAPI.Controllers
     // GET: api/VehicleMake
     public async Task<IHttpActionResult> GetFilterVehicleMake(string filter)
     {
-        IEnumerable<VehicleMake> x = await VMService.FilterAsync(filter);
+        IEnumerable<IVehicleMake> x = await VMService.FilterAsync(filter);
 
         if (x == null)
         {
@@ -53,7 +54,7 @@ namespace Vehicle.WebAPI.Controllers
     [ResponseType(typeof(VehicleMake))]
     public async Task<IHttpActionResult> GetVehicleMake(int id)
     {
-        VehicleMake x = await VMService.GetOneAsync(id);
+        IVehicleMake x = await VMService.GetAsync(id);
         if (x == null)
         {
             return NotFound();
@@ -64,7 +65,7 @@ namespace Vehicle.WebAPI.Controllers
     [HttpPut]
     // PUT: api/VehicleMake/5
     [ResponseType(typeof(void))]
-    public async Task<IHttpActionResult> PutVehicleMake(int id, VehicleMake vehicleMake)
+    public async Task<IHttpActionResult> PutVehicleMake(int id, IVehicleMake vehicleMake)
     {
         if (!ModelState.IsValid)
         {
@@ -91,7 +92,7 @@ namespace Vehicle.WebAPI.Controllers
     [HttpPost]
     // POST: api/VehicleMake
     [ResponseType(typeof(VehicleMake))]
-    public async Task<IHttpActionResult> PostVehicleMake(VehicleMake vehicleMake)
+    public async Task<IHttpActionResult> PostVehicleMake(IVehicleMake vehicleMake)
     {
         if (!ModelState.IsValid)
         {
@@ -111,7 +112,7 @@ namespace Vehicle.WebAPI.Controllers
     [ResponseType(typeof(VehicleMake))]
     public async Task<IHttpActionResult> DeleteVehicleMake(int id)
     {
-        VehicleMake vehicleMake = await VMService.GetOneAsync(id);
+        IVehicleMake vehicleMake = await VMService.GetAsync(id);
         if (vehicleMake == null)
         {
             return NotFound();

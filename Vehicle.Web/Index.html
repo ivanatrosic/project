@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html ng-app="vehicleApp">
+<head>
+    <meta charset="utf-8" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/jquery-1.9.0.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/angular-route.js"></script>
+    <script src="app/app.module.js"></script>
+    <script src="app/vehicleMake.js"></script>
+    <title></title>
+</head>
+<body>
+    <div ng-controller="vehicleMake">
+        <table>
+            <tr>
+                <td>Id</td>
+                <td>Name</td>
+                <td>Advr</td>
+            </tr>
+            <tr ng-repeat="vehicle in vehicles">
+                <td>{{vehicle.id}}</td>
+                <td>{{vehicle.name}}</td>
+                <td>{{vehicle.advr}}</td>
+            </tr>
+        </table>
+
+    </div>
+</body>
+</html>

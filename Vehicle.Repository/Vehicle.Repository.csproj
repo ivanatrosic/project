@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0-beta1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -83,6 +86,10 @@
     <ProjectReference Include="..\Vehicle.DAL\Vehicle.DAL.csproj">
       <Project>{268ea2d0-e25e-4b4f-8740-3d6a1c79a646}</Project>
       <Name>Vehicle.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vehicle.Models\Vehicle.Models.csproj">
+      <Project>{b0637b53-751e-4f30-81a9-8a6226821ee9}</Project>
+      <Name>Vehicle.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

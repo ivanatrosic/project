@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vehicle.Repository;
-using Vehicle.DAL;
+
 using System.Linq.Expressions;
+using Vehicle.Models;
 
 namespace Vehicle.Service
 {
@@ -19,19 +20,19 @@ namespace Vehicle.Service
   
         }
 
-        public  Task<int> DeleteAsync(VehicleMake item)
+        public  Task<int> DeleteAsync(IVehicleMake item)
         {
             return Repository.DeleteAsync(item);
 
         }
 
 
-        public Task<int> InsertAsync(VehicleMake item)
+        public Task<int> InsertAsync(IVehicleMake item)
         {
             return Repository.InsertAsync(item);
         }
 
-        public Task<int> UpdateAsync(VehicleMake item)
+        public Task<int> UpdateAsync(IVehicleMake item)
         {
             return Repository.UpdateAsync(item);
             
@@ -39,7 +40,7 @@ namespace Vehicle.Service
         }
 
 
-        public Task<IEnumerable<VehicleMake>> GetAllAsync()
+        public Task<IEnumerable<IVehicleMake>> GetAllAsync()
         {
             return Repository.GetAllAsync();
         }
@@ -49,21 +50,21 @@ namespace Vehicle.Service
         //    return Repository.FindAsync(predicate);
 
         //}
-        public Task<VehicleMake> GetOneAsync(int ID)
+        public Task<IVehicleMake> GetAsync(int ID)
         {
-            return Repository.GetOneAsync(ID);
+            return Repository.GetAsync(ID);
         }
 
 
-        public Task<IEnumerable<VehicleMake>> FilterAsync(string filter)
+        public Task<IEnumerable<IVehicleMake>> FilterAsync(string filter)
         {
             return Repository.FilterAsync(filter);
         }
 
-        //public Task<IEnumerable<VehicleMake>> SortAsync()
-        //{
-        //    return Repository.SortAsync();
-        //}
+        public Task<IEnumerable<IVehicleMake>> SortAsync()
+        {
+            return Repository.SortAsync();
+        }
 
         public Task<int> DeleteAsync(int id)
         {
