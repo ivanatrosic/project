@@ -21,7 +21,9 @@ namespace Vehicle.MVC
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AutoMapper.Mapper.Initialize(cfg => cfg.AddProfile<AutoMaperModels>());
- 
+            AutoMapperConfig.RegisterMappings();
+
+
         }
     }
 }

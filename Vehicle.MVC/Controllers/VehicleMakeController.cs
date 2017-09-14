@@ -10,10 +10,14 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Vehicle.Service;
+using Vehicle.MVC.Models;
+using AutoMapper;
 using System.Linq.Expressions;
+using Vehicle.Models;
 
 namespace Vehicle.MVC.Controllers
 {
+    
     public class VehicleMakeController : ApiController
     {
         private IVehicleMakeService VMService { get; set; }
@@ -23,8 +27,9 @@ namespace Vehicle.MVC.Controllers
         }
 
 
+
+        [Route("api/VehicleMake")]
         [HttpGet]
-        // GET: api/VehicleMake
         public async Task<IHttpActionResult> GetVehicleMake()
         {
             var x = await VMService.GetAllAsync();
@@ -40,7 +45,7 @@ namespace Vehicle.MVC.Controllers
            
         }
         [HttpGet]
-        //GET: api/VehicleMake
+        [Route("api/VehicleMake")]
         public async Task<IHttpActionResult> GetFilterVehicleMake(string filter)
         {
             var x = await VMService.FilterAsync(filter);
@@ -54,7 +59,7 @@ namespace Vehicle.MVC.Controllers
         }
 
         [HttpGet]
-        //GET: api/VehicleMake/5
+        [Route("api/VehicleMake/{id}")]
         public async Task<IHttpActionResult> GetVehicleMake(int id)
         {
             var x = await VMService.GetAsync(id);
@@ -66,77 +71,54 @@ namespace Vehicle.MVC.Controllers
             return Ok(x);
         }
         [HttpPut]
-        // PUT: api/VehicleMake/5
-        //[ResponseType(typeof(void))]
-        //public async Task<IHttpActionResult> PutVehicleMake(int id, VehicleMake vehicleMake)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        [Route("api/VehicleMake/{id}")]
+        public async Task<HttpResponseMessage> PutVehicleMake(int id, VehicleMakeData vehicleMake)
+        {
 
-        //    if (id != vehicleMake.Id)
-        //    {
-        //        return NotFound();
-        //    }
+            if (id != vehicleMake.Id)
+            {
+                return Request.CreateResponse(HttpStatusCode.NoContent);
+            }
 
-        //    var x = await VMService.UpdateAsync(vehicleMake);
-        //    if ( x == 1 )
-        //    {
-        //        return Ok(vehicleMake);
+            var x = await VMService.UpdateAsync(Mapper.Map<VehicleMakeDTO>(vehicleMake));
+            if (x == 1)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, vehicleMake);
 
-        //    }
-        //    else
-        //    {
-        //        return StatusCode(HttpStatusCode.InternalServerError);
-        //    }
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
 
-        //}
-        //[HttpPost]
-        // POST: api/VehicleMake
-        //[ResponseType(typeof(VehicleMake))]
-        //public async Task<IHttpActionResult> PostVehicleMake(VehicleMake vehicleMake)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        }
+        [HttpPost]
+        [Route("api/VehicleMake")]
+        public async Task<IHttpActionResult> PostVehicleMake(VehicleMakeData vehicleMake)
+        {
 
-        //    var x = await VMService.InsertAsync(vehicleMake);
+            var x = await VMService.InsertAsync(Mapper.Map<VehicleMakeDTO>(vehicleMake));
 
-        //    if (x != 0)
-        //        return Ok(x);
+            if (x == 1)
+                return Ok(x);
+            else
+                return InternalServerError();
 
-        //    return CreatedAtRoute("DefaultApi", new { id = vehicleMake.Id }, vehicleMake);
-        //}
+        }
 
         [HttpDelete]
-        // DELETE: api/VehicleMake/5
-
-        public async Task<IHttpActionResult> DeleteVehicleMake(int id)
+        [Route("api/VehicleMake/{id}")]
+        public async Task<HttpResponseMessage> DeleteVehicleMake(int id)
         {
             var x = await VMService.DeleteAsync(id);
             if (x != 1)
             {
-                return NotFound();
+                return Request.CreateResponse(HttpStatusCode.NoContent);
             }
 
             await VMService.DeleteAsync(x);
-            return Ok(x);
+            return Request.CreateResponse(HttpStatusCode.OK, x);
         }
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
-
-        //private bool VehicleMakeExists(int id)
-        //{
-        //    return db.VehicleMake.Count(e => e.Id == id) > 0;
-        //}
     }
 }
