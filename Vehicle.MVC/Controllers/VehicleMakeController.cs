@@ -14,6 +14,7 @@ using Vehicle.MVC.Models;
 using AutoMapper;
 using System.Linq.Expressions;
 using Vehicle.Models;
+using Vehicle.Paging;
 
 namespace Vehicle.MVC.Controllers
 {
@@ -30,9 +31,10 @@ namespace Vehicle.MVC.Controllers
 
         [Route("api/VehicleMake")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetVehicleMake()
+        public async Task<IHttpActionResult> GetVehicleMake(int pageNumber, int pageSize)
         {
-            var x = await VMService.GetAllAsync();
+            PagingDetails pagingDetails = new PagingDetails(pageNumber, pageSize);
+            var x = await VMService.GetAllAsync(pagingDetails);
             if (x==null)
             {
                 return NotFound();
@@ -45,10 +47,11 @@ namespace Vehicle.MVC.Controllers
            
         }
         [HttpGet]
-        [Route("api/VehicleMake")]
-        public async Task<IHttpActionResult> GetFilterVehicleMake(string filter)
+        [Route("api/VehicleMake/{filter}")]
+        public async Task<IHttpActionResult> GetFilterVehicleMake(string filter, int pageNumber, int pageSize)
         {
-            var x = await VMService.FilterAsync(filter);
+            PagingDetails pagingDetails = new PagingDetails(pageNumber, pageSize);
+            var x = await VMService.FilterAsync(filter, pagingDetails);
 
             if (x == null)
             {

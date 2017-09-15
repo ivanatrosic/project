@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vehicle.Repository;
-
+using Vehicle.Paging;
 using System.Linq.Expressions;
 using Vehicle.Models;
 
@@ -40,9 +40,9 @@ namespace Vehicle.Service
         }
 
 
-        public Task<IEnumerable<IVehicleMake>> GetAllAsync()
+        public Task<IEnumerable<IVehicleMake>> GetAllAsync(PagingDetails pagingDetails)
         {
-            return Repository.GetAllAsync();
+            return Repository.GetAllAsync(pagingDetails);
         }
 
         //public Task<IEnumerable<VehicleMake>> FindAsync(Expression<Func<VehicleMake, bool>> predicate)
@@ -56,9 +56,9 @@ namespace Vehicle.Service
         }
 
 
-        public Task<IEnumerable<IVehicleMake>> FilterAsync(string filter)
+        public Task<IEnumerable<IVehicleMake>> FilterAsync(string filter, PagingDetails pagingDetails)
         {
-            return Repository.FilterAsync(filter);
+            return Repository.FilterAsync(filter, pagingDetails);
         }
 
         public Task<IEnumerable<IVehicleMake>> SortAsync()

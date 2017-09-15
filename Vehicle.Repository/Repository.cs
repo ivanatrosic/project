@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Linq.Expressions;
 using Vehicle.DAL;
+using Vehicle.Paging;
 
 namespace Vehicle.Repository
 {
@@ -59,10 +60,10 @@ namespace Vehicle.Repository
         //    return Context.Set<T>().ToList();
         //}
 
-        public async Task<IEnumerable<T>> FindAsync<T>(Expression<Func<T, bool>> predicate) where T : class
-        {
-            return await Context.Set<T>().Where(predicate).ToListAsync();
-        }
+        //public async Task<IEnumerable<T>> FindAsync<T>(Expression<Func<T, bool>> predicate, PagingDetails pagingDetails) where T : class
+        //{
+        //    return await Context.Set<T>().Where(predicate).ToListAsync();
+        //}
 
         public virtual IQueryable<T> WhereAsync<T>() where T : class
         {

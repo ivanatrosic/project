@@ -1049,6 +1049,10 @@
       <Project>{b0637b53-751e-4f30-81a9-8a6226821ee9}</Project>
       <Name>Vehicle.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Vehicle.Paging\Vehicle.Paging.csproj">
+      <Project>{9a537d7b-d87f-49c3-88d6-4a52d76ea3f8}</Project>
+      <Name>Vehicle.Paging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Vehicle.Repository\Vehicle.Repository.csproj">
       <Project>{2cb1feb3-d4c2-445f-a1b5-fc333b6cf19a}</Project>
       <Name>Vehicle.Repository</Name>

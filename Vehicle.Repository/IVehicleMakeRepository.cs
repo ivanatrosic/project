@@ -6,14 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Vehicle.Models;
 using Vehicle.Repository;
+using Vehicle.Paging;
 
 namespace Vehicle.Repository
 {
     public interface IVehicleMakeRepository
     {
 
-        Task<IEnumerable<IVehicleMake>> GetAllAsync();
-        Task<IEnumerable<IVehicleMake>> FilterAsync(string filter);
+        Task<IEnumerable<IVehicleMake>> GetAllAsync(PagingDetails pagingDetails);
+        Task<IEnumerable<IVehicleMake>> FilterAsync(string filter, PagingDetails pagingDetails);
         Task<IEnumerable<IVehicleMake>> SortAsync();
         Task<int> InsertAsync(IVehicleMake item);
 

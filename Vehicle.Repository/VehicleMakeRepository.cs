@@ -10,6 +10,7 @@ using Vehicle.DAL;
 using Vehicle.Repository;
 using AutoMapper;
 using Vehicle.Models;
+using Vehicle.Paging;
 
 namespace Vehicle.Repository
 {
@@ -22,9 +23,13 @@ namespace Vehicle.Repository
         }
 
 
-        public async Task<IEnumerable<IVehicleMake>> GetAllAsync()
+        public async Task<IEnumerable<IVehicleMake>> GetAllAsync(PagingDetails pagingDetails)
         {
-            return Mapper.Map <IEnumerable<IVehicleMake>> (await Repository.WhereAsync<VehicleMake>().ToListAsync<VehicleMake>());
+            return Mapper.Map <IEnumerable<IVehicleMake>> (
+                await Repository.WhereAsync<VehicleMake>()
+                     .Skip(pagingDetails.PageSkip)
+                     .Take(pagingDetails.PageSize)
+                     .ToListAsync<VehicleMake>());
         }
 
         public async Task<IVehicleMake> GetAsync(int id)
@@ -32,9 +37,14 @@ namespace Vehicle.Repository
             return Mapper.Map<IVehicleMake>(await Repository.GetOneAsync<VehicleMake>(id));
         }
 
-        public async Task<IEnumerable<IVehicleMake>> FilterAsync(string filter)
+        public async Task<IEnumerable<IVehicleMake>> FilterAsync(string filter, PagingDetails pagingDetails)
         {
-            return Mapper.Map<IEnumerable<IVehicleMake>>(await Repository.FindAsync<VehicleMake>(s => s.Name.Contains(filter) || s.Abrv.Contains(filter)));
+            return Mapper.Map<IEnumerable<IVehicleMake>>(
+                await Repository.WhereAsync<VehicleMake>()
+                     .Where(s => s.Name.Contains(filter) ||  s.Abrv.Contains(filter))
+                     .Skip(pagingDetails.PageSkip)
+                     .Take(pagingDetails.PageSize)
+                     .ToListAsync<VehicleMake>());
         }
 
         public async Task<IEnumerable<IVehicleMake>> SortAsync()
