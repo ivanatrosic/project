@@ -16,6 +16,9 @@ namespace Vehicle.MVC.App_Start
             {
                 config.CreateMap<VehicleMakeData, VehicleMakeDTO>().ReverseMap();
                 config.CreateMap<VehicleMakeData, IVehicleMake>().ReverseMap();
+
+                config.CreateMap<VehicleModelData, VehicleModelDTO>().ReverseMap();
+                config.CreateMap<VehicleModelData, IVehicleModel>().ReverseMap();
             });
 
         }

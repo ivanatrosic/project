@@ -42,15 +42,16 @@ namespace Vehicle.Repository
             return Mapper.Map<IEnumerable<IVehicleMake>>(
                 await Repository.WhereAsync<VehicleMake>()
                      .Where(s => s.Name.Contains(filter) ||  s.Abrv.Contains(filter))
+                     .OrderBy(s => s.Name)
                      .Skip(pagingDetails.PageSkip)
                      .Take(pagingDetails.PageSize)
                      .ToListAsync<VehicleMake>());
         }
 
-        public async Task<IEnumerable<IVehicleMake>> SortAsync()
-        {
-            return Mapper.Map < IEnumerable < IVehicleMake >> (await Repository.WhereAsync<VehicleMake>().OrderBy(x=> x.Name).ToListAsync());
-        }
+        //public async Task<IEnumerable<IVehicleMake>> SortAsync()
+        //{
+        //    return Mapper.Map < IEnumerable < IVehicleMake >> (await Repository.WhereAsync<VehicleMake>().OrderBy(x=> x.Name).ToListAsync());
+        //}
 
         public Task<int> InsertAsync(IVehicleMake item)
         {
