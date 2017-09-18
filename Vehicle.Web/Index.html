@@ -9,20 +9,21 @@
     <script src="Scripts/angular-route.js"></script>
     <script src="app/app.module.js"></script>
     <script src="app/vehicleMake.js"></script>
+    <script src="app/VehicleMakeService.js"></script>
     <title></title>
 </head>
 <body>
-    <div ng-controller="vehicleMake">
+    <div ng-controller="vehicleMake as vm">
         <table>
             <tr>
                 <td>Id</td>
                 <td>Name</td>
                 <td>Advr</td>
             </tr>
-            <tr ng-repeat="vehicle in vehicles">
-                <td>{{vehicle.id}}</td>
-                <td>{{vehicle.name}}</td>
-                <td>{{vehicle.advr}}</td>
+            <tr ng-repeat="vehicle in vm.vehicles">
+                <td>{{vehicle.Id}}</td>
+                <td>{{vehicle.Name}}</td>
+                <td>{{vehicle.Abvr}}</td>
             </tr>
         </table>
 

@@ -23,10 +23,11 @@ namespace Vehicle.Repository
         }
 
 
-        public async Task<IEnumerable<IVehicleMake>> GetAllAsync(PagingDetails pagingDetails)
+        public async Task<List<IVehicleMake>> GetAllAsync(PagingDetails pagingDetails)
         {
-            return Mapper.Map <IEnumerable<IVehicleMake>> (
+            return Mapper.Map <List<IVehicleMake>> (
                 await Repository.WhereAsync<VehicleMake>()
+                     .OrderBy(s => s.Name)
                      .Skip(pagingDetails.PageSkip)
                      .Take(pagingDetails.PageSize)
                      .ToListAsync<VehicleMake>());

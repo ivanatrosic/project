@@ -29,7 +29,8 @@ namespace Vehicle.MVC.Controllers
 
 
 
-        [Route("api/VehicleMake")]
+        [Route("api/VehicleMake/{pageNumber}/{pageSize}")]
+        [AcceptVerbs("GET", "PUT")]
         [HttpGet]
         public async Task<IHttpActionResult> GetVehicleMake(int pageNumber, int pageSize)
         {

@@ -43,6 +43,7 @@ namespace Vehicle.Repository
         {
             return Mapper.Map<IEnumerable<IVehicleModel>>(
                 await Repository.WhereAsync<VehicleModel>()
+                    .OrderBy(s => s.Name)
                      .Skip(pagingDetails.PageSkip)
                     .Take(pagingDetails.PageSize)
                     .ToListAsync<VehicleModel>());
