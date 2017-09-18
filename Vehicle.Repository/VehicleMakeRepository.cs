@@ -23,14 +23,27 @@ namespace Vehicle.Repository
         }
 
 
-        public async Task<List<IVehicleMake>> GetAllAsync(PagingDetails pagingDetails)
+        public async Task<List<IVehicleMake>> GetAsync(IPagingDetails pagingDetails)
         {
-            return Mapper.Map <List<IVehicleMake>> (
-                await Repository.WhereAsync<VehicleMake>()
-                     .OrderBy(s => s.Name)
-                     .Skip(pagingDetails.PageSkip)
-                     .Take(pagingDetails.PageSize)
-                     .ToListAsync<VehicleMake>());
+            if (pagingDetails.Filter != null)
+            {
+                 return Mapper.Map<List<IVehicleMake>>(
+                    await Repository.WhereAsync<VehicleMake>()
+                      .Where(s => s.Name.ToLower().Contains(pagingDetails.Filter.ToLower()) ||  s.Abrv.ToLower().Contains(pagingDetails.Filter.ToLower()))
+                      .OrderBy(s => s.Name)
+                      .Skip(pagingDetails.PageSkip)
+                      .Take(pagingDetails.PageSize)
+                      .ToListAsync<VehicleMake>());
+            }
+            else
+            {
+                return Mapper.Map<List<IVehicleMake>>(
+                   await Repository.WhereAsync<VehicleMake>()
+                        .OrderBy(s => s.Name)
+                        .Skip(pagingDetails.PageSkip)
+                        .Take(pagingDetails.PageSize)
+                        .ToListAsync<VehicleMake>());
+            }
         }
 
         public async Task<IVehicleMake> GetAsync(int id)
@@ -38,21 +51,6 @@ namespace Vehicle.Repository
             return Mapper.Map<IVehicleMake>(await Repository.GetOneAsync<VehicleMake>(id));
         }
 
-        public async Task<IEnumerable<IVehicleMake>> FilterAsync(string filter, PagingDetails pagingDetails)
-        {
-            return Mapper.Map<IEnumerable<IVehicleMake>>(
-                await Repository.WhereAsync<VehicleMake>()
-                     .Where(s => s.Name.Contains(filter) ||  s.Abrv.Contains(filter))
-                     .OrderBy(s => s.Name)
-                     .Skip(pagingDetails.PageSkip)
-                     .Take(pagingDetails.PageSize)
-                     .ToListAsync<VehicleMake>());
-        }
-
-        //public async Task<IEnumerable<IVehicleMake>> SortAsync()
-        //{
-        //    return Mapper.Map < IEnumerable < IVehicleMake >> (await Repository.WhereAsync<VehicleMake>().OrderBy(x=> x.Name).ToListAsync());
-        //}
 
         public Task<int> InsertAsync(IVehicleMake item)
         {

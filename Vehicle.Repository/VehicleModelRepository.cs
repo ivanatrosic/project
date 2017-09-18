@@ -28,9 +28,9 @@ namespace Vehicle.Repository
             return Repository.DeleteAsync<VehicleModel>(id);
         }
 
-        public async Task<IEnumerable<IVehicleModel>> FilterByMakeAsync(int makeId, PagingDetails pagingDetails)
+        public async Task<List<IVehicleModel>> GetByMakeAsync(int makeId, PagingDetails pagingDetails)
         {
-            return Mapper.Map<IEnumerable<IVehicleModel>>(
+            return Mapper.Map<List<IVehicleModel>>(
                 await Repository.WhereAsync<VehicleModel>()
                      .Where(s => s.MakeId == makeId)
                      .OrderBy(s => s.Name)
@@ -39,14 +39,27 @@ namespace Vehicle.Repository
                      .ToListAsync<VehicleModel>());
         }
 
-        public async Task<IEnumerable<IVehicleModel>> GetAllAsync(PagingDetails pagingDetails)
+        public async Task<List<IVehicleModel>> GetAsync(PagingDetails pagingDetails)
         {
-            return Mapper.Map<IEnumerable<IVehicleModel>>(
-                await Repository.WhereAsync<VehicleModel>()
-                    .OrderBy(s => s.Name)
+            if (pagingDetails.Filter != null)
+            {
+                return Mapper.Map<List<IVehicleModel>>(
+                   await Repository.WhereAsync<VehicleModel>()
+                     .Where(s => s.Name.ToLower().Contains(pagingDetails.Filter.ToLower()) || s.Abrv.ToLower().Contains(pagingDetails.Filter.ToLower()))
+                     .OrderBy(s => s.Name)
                      .Skip(pagingDetails.PageSkip)
-                    .Take(pagingDetails.PageSize)
-                    .ToListAsync<VehicleModel>());
+                     .Take(pagingDetails.PageSize)
+                     .ToListAsync<VehicleModel>());
+            }
+            else
+            {
+                return Mapper.Map<List<IVehicleModel>>(
+                   await Repository.WhereAsync<VehicleModel>()
+                        .OrderBy(s => s.Name)
+                        .Skip(pagingDetails.PageSkip)
+                        .Take(pagingDetails.PageSize)
+                        .ToListAsync<VehicleModel>());
+            }
 
         }
 

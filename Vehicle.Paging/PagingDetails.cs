@@ -6,17 +6,20 @@ using System.Threading.Tasks;
 
 namespace Vehicle.Paging
 {
-    public class PagingDetails
+    public class PagingDetails : IPagingDetails 
     {
-        public int PageNumber;
-        public int PageSize;
-        public int PageSkip;
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
+        public int PageSkip { get; set; }
+        public string Filter { get; set; }
+
+
         public PagingDetails()
-            : this(1, 5)
+            : this(null, 1, 5)
         {
         }
 
-        public PagingDetails(int pageNumber, int pageSize)
+        public PagingDetails(string Filter, int pageNumber, int pageSize)
         {
             if (pageNumber == 0 || PageSize == 0)
             {
@@ -27,6 +30,7 @@ namespace Vehicle.Paging
             this.PageNumber = pageNumber;
             this.PageSize = pageSize;
             this.PageSkip = PageSize * (PageNumber - 1);
+            this.Filter = Filter;
         }
  
     }

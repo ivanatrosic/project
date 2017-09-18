@@ -13,9 +13,7 @@ namespace Vehicle.Repository
     public interface IVehicleMakeRepository
     {
 
-        Task<List<IVehicleMake>> GetAllAsync(PagingDetails pagingDetails);
-        Task<IEnumerable<IVehicleMake>> FilterAsync(string filter, PagingDetails pagingDetails);
-        //Task<IEnumerable<IVehicleMake>> SortAsync();
+        Task<List<IVehicleMake>> GetAsync(IPagingDetails pagingDetails);
         Task<int> InsertAsync(IVehicleMake item);
         Task<int> UpdateAsync(IVehicleMake item);
         Task<IVehicleMake> GetAsync(int id);

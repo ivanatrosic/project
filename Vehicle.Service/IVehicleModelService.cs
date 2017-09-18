@@ -14,9 +14,9 @@ namespace Vehicle.Service
         Task<int> UpdateAsync(IVehicleModel item);
         Task<int> DeleteAsync(IVehicleModel item);
         Task<int> DeleteAsync(int id);
-        Task<IEnumerable<IVehicleModel>> GetAllAsync(PagingDetails pagingDetails);
-        Task<IEnumerable<IVehicleModel>> FilterByMakeAsync(int makeId, PagingDetails pagingDetails);
+        Task<List<IVehicleModel>> GetAsync(PagingDetails pagingDetails);
         Task<IVehicleModel> GetAsync(int ID);
+        Task<List<IVehicleModel>> GetByMakeAsync(int makeId, PagingDetails pagingDetails);
 
 
     }

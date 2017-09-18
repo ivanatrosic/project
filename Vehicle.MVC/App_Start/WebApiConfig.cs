@@ -20,7 +20,6 @@ namespace Vehicle.MVC
             var cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);
 
-
             config.Formatters.Remove(config.Formatters.XmlFormatter);
             config.Formatters.Add(config.Formatters.JsonFormatter);
         }

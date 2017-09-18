@@ -40,9 +40,9 @@ namespace Vehicle.Service
         }
 
 
-        public Task<List<IVehicleMake>> GetAllAsync(PagingDetails pagingDetails)
+        public Task<List<IVehicleMake>> GetAsync(IPagingDetails pagingDetails)
         {
-            return Repository.GetAllAsync(pagingDetails);
+            return Repository.GetAsync(pagingDetails);
         }
 
         public Task<IVehicleMake> GetAsync(int ID)
@@ -51,15 +51,6 @@ namespace Vehicle.Service
         }
 
 
-        public Task<IEnumerable<IVehicleMake>> FilterAsync(string filter, PagingDetails pagingDetails)
-        {
-            return Repository.FilterAsync(filter, pagingDetails);
-        }
-
-        //public Task<IEnumerable<IVehicleMake>> SortAsync()
-        //{
-        //    return Repository.SortAsync();
-        //}
 
         public Task<int> DeleteAsync(int id)
         {

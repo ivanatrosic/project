@@ -25,10 +25,10 @@ namespace Vehicle.MVC.Controllers
 
         [Route("api/VehicleModel")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetVehicleModel(int pageNumber, int pageSize)
+        public async Task<IHttpActionResult> GetVehicleModel(string Filter, int pageNumber, int pageSize)
         {
-            PagingDetails pagingDetails = new PagingDetails(pageNumber, pageSize);
-            var x = await VMService.GetAllAsync(pagingDetails);
+            PagingDetails pagingDetails = new PagingDetails(Filter, pageNumber, pageSize);
+            var x = Mapper.Map < List < VehicleModelData >>( await VMService.GetAsync(pagingDetails));
             if (x == null)
             {
                 return NotFound();
@@ -42,10 +42,10 @@ namespace Vehicle.MVC.Controllers
         }
         [HttpGet]
         [Route("api/VehicleModel/{MadeId}")]
-        public async Task<IHttpActionResult> GetFilterByMake(int madeId, int pageNumber, int pageSize)
+        public async Task<IHttpActionResult> GetByMake(int madeId, int pageNumber, int pageSize)
         {
-            PagingDetails pagingDetails = new PagingDetails(pageNumber, pageSize);
-            var x = await VMService.FilterByMakeAsync(madeId, pagingDetails);
+            PagingDetails pagingDetails = new PagingDetails(null, pageNumber, pageSize);
+            var x = Mapper.Map<List<VehicleModelData>>(await VMService.GetByMakeAsync(madeId, pagingDetails));
 
             if (x == null)
             {
@@ -59,7 +59,7 @@ namespace Vehicle.MVC.Controllers
         [Route("api/VehicleModel/{id}")]
         public async Task<IHttpActionResult> GetVehicleModel(int id)
         {
-            var x = await VMService.GetAsync(id);
+            var x = Mapper.Map<List<VehicleModelData>>(await VMService.GetAsync(id));
             if (x == null)
             {
                 return NotFound();

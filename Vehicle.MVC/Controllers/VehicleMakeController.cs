@@ -1,11 +1,5 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -15,6 +9,8 @@ using AutoMapper;
 using System.Linq.Expressions;
 using Vehicle.Models;
 using Vehicle.Paging;
+using System.Net.Http;
+using System.Net;
 
 namespace Vehicle.MVC.Controllers
 {
@@ -29,13 +25,12 @@ namespace Vehicle.MVC.Controllers
 
 
 
-        [Route("api/VehicleMake/{pageNumber}/{pageSize}")]
-        [AcceptVerbs("GET", "PUT")]
+        [Route("api/VehicleMake")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetVehicleMake(int pageNumber, int pageSize)
+        public async Task<IHttpActionResult> GetVehicleMake(string Filter, int pageNumber, int pageSize)
         {
-            PagingDetails pagingDetails = new PagingDetails(pageNumber, pageSize);
-            var x = await VMService.GetAllAsync(pagingDetails);
+            PagingDetails pagingDetails = new PagingDetails(Filter, pageNumber, pageSize);
+            var x = Mapper.Map<List<VehicleMakeData>>(await VMService.GetAsync(pagingDetails));
             if (x==null)
             {
                 return NotFound();
@@ -47,26 +42,12 @@ namespace Vehicle.MVC.Controllers
            
            
         }
-        [HttpGet]
-        [Route("api/VehicleMake/{filter}")]
-        public async Task<IHttpActionResult> GetFilterVehicleMake(string filter, int pageNumber, int pageSize)
-        {
-            PagingDetails pagingDetails = new PagingDetails(pageNumber, pageSize);
-            var x = await VMService.FilterAsync(filter, pagingDetails);
-
-            if (x == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(x);
-        }
 
         [HttpGet]
         [Route("api/VehicleMake/{id}")]
         public async Task<IHttpActionResult> GetVehicleMake(int id)
         {
-            var x = await VMService.GetAsync(id);
+            var x = Mapper.Map < List <VehicleMakeData>>( await VMService.GetAsync(id));
             if (x == null)
             {
                 return NotFound();
