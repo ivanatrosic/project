@@ -67,11 +67,13 @@ namespace Vehicle.MVC.App_Start
         {
             kernel.Bind<IRepository>().To<Repository>();
             kernel.Bind<IVehicleMakeRepository>().To<VehicleMakeRepository>();
+            kernel.Bind<IVehicleModelRepository>().To<VehicleModelRepository>();
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
 
 
             kernel.Bind<IVehicleMakeService>().To<VehicleMakeService>();
- 
+            kernel.Bind<IVehicleModelService>().To<VehicleModelService>();
+
 
 
         }
