@@ -47,7 +47,7 @@ namespace Vehicle.MVC.Controllers
         [Route("api/VehicleMake/{id}")]
         public async Task<IHttpActionResult> GetVehicleMake(int id)
         {
-            var x = Mapper.Map < List <VehicleMakeData>>( await VMService.GetAsync(id));
+            var x = Mapper.Map <VehicleMakeData>( await VMService.GetAsync(id));
             if (x == null)
             {
                 return NotFound();

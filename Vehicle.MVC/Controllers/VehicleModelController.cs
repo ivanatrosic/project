@@ -59,7 +59,7 @@ namespace Vehicle.MVC.Controllers
         [Route("api/VehicleModel/{id}")]
         public async Task<IHttpActionResult> GetVehicleModel(int id)
         {
-            var x = Mapper.Map<List<VehicleModelData>>(await VMService.GetAsync(id));
+            var x = Mapper.Map<VehicleModelData>(await VMService.GetAsync(id));
             if (x == null)
             {
                 return NotFound();
@@ -94,7 +94,7 @@ namespace Vehicle.MVC.Controllers
         public async Task<IHttpActionResult> PostVehicleMake(VehicleModelData vehicleModel)
         {
 
-            var x = await VMService.InsertAsync(Mapper.Map<VehicleModelDTO>(vehicleModel));
+            var x = await VMService.InsertAsync(Mapper.Map<IVehicleModel>(vehicleModel));
 
             if (x == 1)
                 return Ok(x);
