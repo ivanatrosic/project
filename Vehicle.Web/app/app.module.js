@@ -1,6 +1,6 @@
 ﻿(function() {
     'use strict';
  
-    angular.module('vehicleApp', []);
+    angular.module('vehicleApp', ['ui.router']);
  
 })();

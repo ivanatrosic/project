@@ -1,0 +1,15 @@
+﻿<div ng-controller="vehicleMake as vm">
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Advr</td>
+        </tr>
+        <tr ng-repeat="vehicle in vm.vehicles">
+            <td>{{vehicle.Id}}</td>
+            <td>{{vehicle.Name}}</td>
+            <td>{{vehicle.Abrv}}</td>
+        </tr>
+    </table>
+
+</div>
