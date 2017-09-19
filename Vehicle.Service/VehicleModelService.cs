@@ -24,12 +24,12 @@ namespace Vehicle.Service
             return Repository.DeleteAsync(item);
         }
 
-        public Task<int> DeleteAsync(int id)
+        public Task<int> DeleteAsync(string id)
         {
             return Repository.DeleteAsync(id);
         }
 
-        public Task<List<IVehicleModel>> GetByMakeAsync(int makeId, PagingDetails pagingDetails)
+        public Task<List<IVehicleModel>> GetByMakeAsync(string makeId, PagingDetails pagingDetails)
         {
             return Repository.GetByMakeAsync(makeId, pagingDetails);
         }
@@ -39,7 +39,7 @@ namespace Vehicle.Service
             return Repository.GetAsync(pagingDetails);
         }
 
-        public Task<IVehicleModel> GetAsync(int Id)
+        public Task<IVehicleModel> GetAsync(string Id)
         {
             return Repository.GetAsync(Id);
         }

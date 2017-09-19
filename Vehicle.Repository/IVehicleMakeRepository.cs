@@ -16,9 +16,9 @@ namespace Vehicle.Repository
         Task<List<IVehicleMake>> GetAsync(IPagingDetails pagingDetails);
         Task<int> InsertAsync(IVehicleMake item);
         Task<int> UpdateAsync(IVehicleMake item);
-        Task<IVehicleMake> GetAsync(int id);
+        Task<IVehicleMake> GetAsync(string id);
         Task<int> DeleteAsync(IVehicleMake item);
-        Task<int> DeleteAsync(int id);
+        Task<int> DeleteAsync(string id);
 
 
 

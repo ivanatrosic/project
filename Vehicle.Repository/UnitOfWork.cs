@@ -36,7 +36,7 @@ namespace Vehicle.Repository
 
         }
 
-        public Task<int> DeleteAsync<T>(int id) where T : class
+        public Task<int> DeleteAsync<T>(string id) where T : class
         {
             var x = Context.Set<T>().Find(id);
             if (x == null)

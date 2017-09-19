@@ -45,14 +45,14 @@ namespace Vehicle.Service
             return Repository.GetAsync(pagingDetails);
         }
 
-        public Task<IVehicleMake> GetAsync(int ID)
+        public Task<IVehicleMake> GetAsync(string ID)
         {
             return Repository.GetAsync(ID);
         }
 
 
 
-        public Task<int> DeleteAsync(int id)
+        public Task<int> DeleteAsync(string id)
         {
             return Repository.DeleteAsync(id);
         }

@@ -41,11 +41,12 @@ namespace Vehicle.MVC.Controllers
 
         }
         [HttpGet]
-        [Route("api/VehicleModel/{MadeId}")]
-        public async Task<IHttpActionResult> GetByMake(int madeId, int pageNumber, int pageSize)
+        [AcceptVerbs("GET")]
+        [Route("api/VehicleModel")]
+        public async Task<IHttpActionResult> GetByMake(string makeId, int pageNumber, int pageSize)
         {
             PagingDetails pagingDetails = new PagingDetails(null, pageNumber, pageSize);
-            var x = Mapper.Map<List<VehicleModelData>>(await VMService.GetByMakeAsync(madeId, pagingDetails));
+            var x = Mapper.Map<List<VehicleModelData>>(await VMService.GetByMakeAsync(makeId, pagingDetails));
 
             if (x == null)
             {
@@ -57,7 +58,7 @@ namespace Vehicle.MVC.Controllers
 
         [HttpGet]
         [Route("api/VehicleModel/{id}")]
-        public async Task<IHttpActionResult> GetVehicleModel(int id)
+        public async Task<IHttpActionResult> GetVehicleModel(string id)
         {
             var x = Mapper.Map<VehicleModelData>(await VMService.GetAsync(id));
             if (x == null)
@@ -69,7 +70,7 @@ namespace Vehicle.MVC.Controllers
         }
         [HttpPut]
         [Route("api/VehicleModel/{id}")]
-        public async Task<HttpResponseMessage> PutVehicleModel(int id, VehicleModelData vehicleModel)
+        public async Task<HttpResponseMessage> PutVehicleModel(string id, VehicleModelData vehicleModel)
         {
 
             if (id != vehicleModel.Id)
@@ -93,6 +94,7 @@ namespace Vehicle.MVC.Controllers
         [Route("api/VehicleModel")]
         public async Task<IHttpActionResult> PostVehicleMake(VehicleModelData vehicleModel)
         {
+            
 
             var x = await VMService.InsertAsync(Mapper.Map<IVehicleModel>(vehicleModel));
 
@@ -105,7 +107,7 @@ namespace Vehicle.MVC.Controllers
 
         [HttpDelete]
         [Route("api/VehicleModel/{id}")]
-        public async Task<HttpResponseMessage> DeleteVehicleModel(int id)
+        public async Task<HttpResponseMessage> DeleteVehicleModel(string id)
         {
             var x = await VMService.DeleteAsync(id);
             if (x != 1)
@@ -113,7 +115,6 @@ namespace Vehicle.MVC.Controllers
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }
 
-            await VMService.DeleteAsync(x);
             return Request.CreateResponse(HttpStatusCode.OK, x);
         }
     }

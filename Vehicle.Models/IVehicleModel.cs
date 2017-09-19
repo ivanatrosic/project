@@ -8,8 +8,8 @@ namespace Vehicle.Models
 {
     public interface IVehicleModel
     {
-        int Id { get; set; }
-        int MakeId { get; set; }
+        string Id { get; set; }
+        string MakeId { get; set; }
         string Name { get; set; }
         string Abrv { get; set; }
 

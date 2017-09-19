@@ -26,14 +26,14 @@ namespace Vehicle.Repository
             return await Context.SaveChangesAsync();
         }
 
-        public async Task<int> DeleteAsync<T>(int id) where T : class
+        public async Task<int> DeleteAsync<T>(string id) where T : class
         {
             var x = await GetOneAsync<T>(id);
 
             return await DeleteAsync(x);
         }
 
-        public Task<T> GetOneAsync<T>(int ID) where T : class
+        public Task<T> GetOneAsync<T>(string ID) where T : class
         {
             return Context.Set<T>().FindAsync(ID);
         }
@@ -70,10 +70,5 @@ namespace Vehicle.Repository
             return Context.Set<T>().AsNoTracking();
         }
 
-        public async Task<int> OrderAsync<T>(Expression<Func<T, bool>> predicate ) where T : class
-        {
-            Context.Set<T>().OrderBy(predicate);
-            return await Context.SaveChangesAsync();
-        }
     }
 }

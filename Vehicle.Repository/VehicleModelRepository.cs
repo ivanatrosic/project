@@ -23,12 +23,12 @@ namespace Vehicle.Repository
             return Repository.DeleteAsync<VehicleModel>(Mapper.Map<VehicleModel>(item));
         }
 
-        public Task<int> DeleteAsync(int id)
+        public Task<int> DeleteAsync(string id)
         {
             return Repository.DeleteAsync<VehicleModel>(id);
         }
 
-        public async Task<List<IVehicleModel>> GetByMakeAsync(int makeId, PagingDetails pagingDetails)
+        public async Task<List<IVehicleModel>> GetByMakeAsync(string makeId, PagingDetails pagingDetails)
         {
             return Mapper.Map<List<IVehicleModel>>(
                 await Repository.WhereAsync<VehicleModel>()
@@ -63,7 +63,7 @@ namespace Vehicle.Repository
 
         }
 
-        public async Task<IVehicleModel> GetAsync(int id)
+        public async Task<IVehicleModel> GetAsync(string id)
         {
             return Mapper.Map<IVehicleModel>(await Repository.GetOneAsync<VehicleModel>(id));
         }

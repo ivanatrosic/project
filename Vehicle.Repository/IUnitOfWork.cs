@@ -14,7 +14,7 @@ namespace Vehicle.Repository
         Task<int> InsertAsync<T>(T item) where T : class;
         Task<int> UpdateAsync<T>(T item) where T : class;
         Task<int> DeleteAsync<T>(T item) where T : class;
-        Task<int> DeleteAsync<T>(int id) where T : class;
+        Task<int> DeleteAsync<T>(string id) where T : class;
 
     }
 }

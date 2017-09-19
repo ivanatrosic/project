@@ -8,7 +8,7 @@ namespace Vehicle.Models
 {
     public interface IVehicleMake
     {
-        int Id { get; set; }
+        string Id { get; set; }
         string Name { get; set; }
         string Abrv { get; set; }
     }

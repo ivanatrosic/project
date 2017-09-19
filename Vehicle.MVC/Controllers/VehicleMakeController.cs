@@ -45,7 +45,7 @@ namespace Vehicle.MVC.Controllers
 
         [HttpGet]
         [Route("api/VehicleMake/{id}")]
-        public async Task<IHttpActionResult> GetVehicleMake(int id)
+        public async Task<IHttpActionResult> GetVehicleMake(string id)
         {
             var x = Mapper.Map <VehicleMakeData>( await VMService.GetAsync(id));
             if (x == null)
@@ -57,7 +57,7 @@ namespace Vehicle.MVC.Controllers
         }
         [HttpPut]
         [Route("api/VehicleMake/{id}")]
-        public async Task<HttpResponseMessage> PutVehicleMake(int id, VehicleMakeData vehicleMake)
+        public async Task<HttpResponseMessage> PutVehicleMake(string id, VehicleMakeData vehicleMake)
         {
 
             if (id != vehicleMake.Id)
@@ -93,7 +93,7 @@ namespace Vehicle.MVC.Controllers
 
         [HttpDelete]
         [Route("api/VehicleMake/{id}")]
-        public async Task<HttpResponseMessage> DeleteVehicleMake(int id)
+        public async Task<HttpResponseMessage> DeleteVehicleMake(string id)
         {
             var x = await VMService.DeleteAsync(id);
             if (x != 1)
@@ -101,7 +101,6 @@ namespace Vehicle.MVC.Controllers
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }
 
-            await VMService.DeleteAsync(x);
             return Request.CreateResponse(HttpStatusCode.OK, x);
         }
 

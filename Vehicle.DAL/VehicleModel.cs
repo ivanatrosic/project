@@ -10,9 +10,9 @@ namespace Vehicle.DAL
     public partial class VehicleModel
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
-        public int MakeId { get; set; }
+        public string MakeId { get; set; }
 
         [Required]
         [StringLength(50)]

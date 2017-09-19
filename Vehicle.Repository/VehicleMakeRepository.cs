@@ -46,7 +46,7 @@ namespace Vehicle.Repository
             }
         }
 
-        public async Task<IVehicleMake> GetAsync(int id)
+        public async Task<IVehicleMake> GetAsync(string id)
         {
             return Mapper.Map<IVehicleMake>(await Repository.GetOneAsync<VehicleMake>(id));
         }
@@ -68,7 +68,7 @@ namespace Vehicle.Repository
             return Repository.DeleteAsync<VehicleMake>(Mapper.Map<VehicleMake>(item));
         }
 
-        public Task<int> DeleteAsync(int id)
+        public Task<int> DeleteAsync(string id)
         { 
             return Repository.DeleteAsync<VehicleMake>(id);
         }

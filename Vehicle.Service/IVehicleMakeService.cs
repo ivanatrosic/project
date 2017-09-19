@@ -16,9 +16,9 @@ namespace Vehicle.Service
         Task<int> InsertAsync(IVehicleMake item);
         Task<int> UpdateAsync(IVehicleMake item);
         Task<int> DeleteAsync(IVehicleMake item);
-        Task<int> DeleteAsync(int id);
+        Task<int> DeleteAsync(string id);
         Task<List<IVehicleMake>> GetAsync(IPagingDetails pagingDetails);
-        Task<IVehicleMake> GetAsync(int Id);
+        Task<IVehicleMake> GetAsync(string Id);
 
     }
 }

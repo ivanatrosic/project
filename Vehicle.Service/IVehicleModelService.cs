@@ -13,10 +13,10 @@ namespace Vehicle.Service
         Task<int> InsertAsync(IVehicleModel item);
         Task<int> UpdateAsync(IVehicleModel item);
         Task<int> DeleteAsync(IVehicleModel item);
-        Task<int> DeleteAsync(int id);
+        Task<int> DeleteAsync(string id);
         Task<List<IVehicleModel>> GetAsync(PagingDetails pagingDetails);
-        Task<IVehicleModel> GetAsync(int ID);
-        Task<List<IVehicleModel>> GetByMakeAsync(int makeId, PagingDetails pagingDetails);
+        Task<IVehicleModel> GetAsync(string ID);
+        Task<List<IVehicleModel>> GetByMakeAsync(string makeId, PagingDetails pagingDetails);
 
 
     }
