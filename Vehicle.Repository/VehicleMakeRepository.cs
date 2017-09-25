@@ -29,7 +29,7 @@ namespace Vehicle.Repository
             {
                  return Mapper.Map<List<IVehicleMake>>(
                     await Repository.WhereAsync<VehicleMake>()
-                      .Where(s => s.Name.ToLower().Contains(pagingDetails.Filter.ToLower()) ||  s.Abrv.ToLower().Contains(pagingDetails.Filter.ToLower()))
+                      .Where(s => s.Name.Contains(pagingDetails.Filter) ||  s.Abrv.Contains(pagingDetails.Filter))
                       .OrderBy(s => s.Name)
                       .Skip(pagingDetails.PageSkip)
                       .Take(pagingDetails.PageSize)

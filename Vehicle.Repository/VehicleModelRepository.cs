@@ -28,7 +28,7 @@ namespace Vehicle.Repository
             return Repository.DeleteAsync<VehicleModel>(id);
         }
 
-        public async Task<List<IVehicleModel>> GetByMakeAsync(string makeId, PagingDetails pagingDetails)
+        public async Task<List<IVehicleModel>> GetByMakeAsync(string makeId, IPagingDetails pagingDetails)
         {
             return Mapper.Map<List<IVehicleModel>>(
                 await Repository.WhereAsync<VehicleModel>()
@@ -39,13 +39,13 @@ namespace Vehicle.Repository
                      .ToListAsync<VehicleModel>());
         }
 
-        public async Task<List<IVehicleModel>> GetAsync(PagingDetails pagingDetails)
+        public async Task<List<IVehicleModel>> GetAsync(IPagingDetails pagingDetails)
         {
             if (pagingDetails.Filter != null)
             {
                 return Mapper.Map<List<IVehicleModel>>(
                    await Repository.WhereAsync<VehicleModel>()
-                     .Where(s => s.Name.ToLower().Contains(pagingDetails.Filter.ToLower()) || s.Abrv.ToLower().Contains(pagingDetails.Filter.ToLower()))
+                     .Where(s => s.Name.Contains(pagingDetails.Filter) || s.Abrv.Contains(pagingDetails.Filter))
                      .OrderBy(s => s.Name)
                      .Skip(pagingDetails.PageSkip)
                      .Take(pagingDetails.PageSize)

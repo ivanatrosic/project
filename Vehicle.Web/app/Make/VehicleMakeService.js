@@ -7,13 +7,13 @@
             var defaulturl = 'http://localhost:1501/api/VehicleMake';
 
             return {
-                GetAllVehicleMake: function (Filter, pageNumber, pageSize) {
+                GetVehicleMake: function (Filter, pageNumber, pageSize) {
                     return $http.get(defaulturl + '?Filter=' + Filter + '&pageNumber=' + pageNumber + '&pageSize=' + pageSize);
                 },
 
-                GetVehicleMake: function (id) {
-                    return $http.get(defaulturl+ '/'+id);
-                }
+                //GetVehicleMake: function (id) {
+                //    return $http.get(defaulturl+ '/'+id);
+                //}
 
             };
         }]);

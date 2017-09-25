@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +36,7 @@ namespace Vehicle.MVC.Controllers
             }
             else
             {
-                return Ok(x);
+                return Ok(x.ToPagedList(pageNumber, pageSize));
             }
 
 
@@ -53,7 +54,7 @@ namespace Vehicle.MVC.Controllers
                 return NotFound();
             }
 
-            return Ok(x);
+            return Ok(x.ToPagedList(pageNumber, pageSize));
         }
 
         [HttpGet]
@@ -79,29 +80,28 @@ namespace Vehicle.MVC.Controllers
             }
 
             var x = await VMService.UpdateAsync(Mapper.Map<VehicleModelDTO>(vehicleModel));
-            if (x == 1)
-            {
+            
                 return Request.CreateResponse(HttpStatusCode.OK, vehicleModel);
 
-            }
-            else
-            {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError);
-            }
+
 
         }
         [HttpPost]
         [Route("api/VehicleModel")]
         public async Task<IHttpActionResult> PostVehicleMake(VehicleModelData vehicleModel)
         {
-            
-
-            var x = await VMService.InsertAsync(Mapper.Map<IVehicleModel>(vehicleModel));
-
-            if (x == 1)
-                return Ok(x);
+            if (!ModelState.IsValid)
+            {
+                return Ok(vehicleModel);
+            }
             else
-                return InternalServerError();
+            {
+                var x = await VMService.InsertAsync(Mapper.Map<IVehicleModel>(vehicleModel));
+                return Ok(x);
+
+            }
+
+  
 
         }
 

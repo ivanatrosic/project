@@ -29,12 +29,12 @@ namespace Vehicle.Service
             return Repository.DeleteAsync(id);
         }
 
-        public Task<List<IVehicleModel>> GetByMakeAsync(string makeId, PagingDetails pagingDetails)
+        public Task<List<IVehicleModel>> GetByMakeAsync(string makeId, IPagingDetails pagingDetails)
         {
             return Repository.GetByMakeAsync(makeId, pagingDetails);
         }
 
-        public Task<List<IVehicleModel>> GetAsync(PagingDetails pagingDetails)
+        public Task<List<IVehicleModel>> GetAsync(IPagingDetails pagingDetails)
         {
             return Repository.GetAsync(pagingDetails);
         }

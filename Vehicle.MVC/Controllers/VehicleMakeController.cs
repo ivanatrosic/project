@@ -11,6 +11,7 @@ using Vehicle.Models;
 using Vehicle.Paging;
 using System.Net.Http;
 using System.Net;
+using PagedList;
 
 namespace Vehicle.MVC.Controllers
 {
@@ -37,7 +38,7 @@ namespace Vehicle.MVC.Controllers
             }
             else
             {
-                return Ok(x);
+                return Ok(x.ToPagedList(pageNumber, pageSize));
             }
            
            
@@ -66,28 +67,23 @@ namespace Vehicle.MVC.Controllers
             }
 
             var x = await VMService.UpdateAsync(Mapper.Map<VehicleMakeDTO>(vehicleMake));
-            if (x == 1)
-            {
                 return Request.CreateResponse(HttpStatusCode.OK, vehicleMake);
-
-            }
-            else
-            {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError);
-            }
 
         }
         [HttpPost]
         [Route("api/VehicleMake")]
         public async Task<IHttpActionResult> PostVehicleMake(VehicleMakeData vehicleMake)
         {
-
-            var x = await VMService.InsertAsync(Mapper.Map<VehicleMakeDTO>(vehicleMake));
-
-            if (x == 1)
-                return Ok(x);
+            if (!ModelState.IsValid)
+            {
+                return Ok(vehicleMake);
+            }
             else
-                return InternalServerError();
+            {
+                var x = await VMService.InsertAsync(Mapper.Map<VehicleMakeDTO>(vehicleMake));
+                    return Ok(x);
+  
+            }
 
         }
 
