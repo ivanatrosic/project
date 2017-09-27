@@ -3,10 +3,7 @@
         <div class="row">
             <h1>Vehicle Make</h1>
 
-            <div class="input-group">
-                         <button class="btn btn-default" type="submit" ng-click="vm.fetch(vm.search, 1, vm.pageSize)">Search</button>
-                         <input type="text" class="form-control" ng-model="vm.search" name="search" placeholder="Search">
-            </div>
+           
 
             <div ng-if="vm.showEdit">
                 <div>
@@ -15,49 +12,82 @@
                 <form>
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="editName"  ng-model="vm.vehicle.Name">
+                        <input type="text" class="form-control" id="editName" ng-model="vm.vehicle.Name">
                     </div>
                     <div class="form-group">
                         <label for="name">Abrv</label>
-                        <input type="text" class="form-control" id="editAbrv"  ng-model="vm.vehicle.Abrv">
+                        <input type="text" class="form-control" id="editAbrv" ng-model="vm.vehicle.Abrv">
                     </div>
                     <div class="form-group">
-                            <button type="submit" value="Update" ng-click="vm.edit(vm.vehicle)" title="Update">Save</button>
-                        <button  ng-click="vm.Hide()">Cancel</button>
-                        </div>
+                        <button type="submit" value="Update" ng-click="vm.edit(vm.vehicle)" title="Update">Save</button>
+                        <button ng-click="vm.Hide()">Cancel</button>
+                    </div>
                 </form>
 
             </div>
+            <div ng-if="vm.showAdd">
+                <div>
+                    <h2>Add</h2>
+                </div>
+                <form>
+                    <div class="form-group">
+                        <label for="name">Id</label>
+                        <input type="text" class="form-control" id="addId" ng-model="vm.vehicle.Id">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="addName" ng-model="vm.vehicle.Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Abrv</label>
+                        <input type="text" class="form-control" id="addAbrv" ng-model="vm.vehicle.Abrv">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" value="Update" ng-click="vm.add(vm.vehicle)" title="Update">Save</button>
+                        <button ng-click="vm.Hide()">Cancel</button>
+                    </div>
+                </form>
 
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover tabel-condensed">
-                    <thead>
-                        <tr>
-                            <td>Id</td>
-                            <td>Name</td>
-                            <td>Abrv</td>
-                            <td></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
+            </div>
+            <div ng-if="vm.showTable">
+
+                <button ng-click="vm.ShowAdd()">Add new!</button>
+
+                <div class="input-group">
+                    <button class="btn btn-default" type="submit" ng-click="vm.fetch(vm.search, 1, vm.pageSize)">Search</button>
+                    <input type="text" class="form-control" ng-model="vm.search" name="search" placeholder="Search">
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover tabel-condensed">
+                        <thead>
+                            <tr>
+                                <td>Id</td>
+                                <td>Name</td>
+                                <td>Abrv</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+
                             <tr ng-repeat="vehicle in vm.vehicles">
                                 <td>{{vehicle.Id}}</td>
                                 <td>{{vehicle.Name}}</td>
                                 <td>{{vehicle.Abrv}}</td>
-                                <td><button ng-click="vm.delete(vm.vehicles.indexOf(vehicle))">Delete</button>  <a ng-click="vm.ShowEdit(vehicle)">Edit</a></td>
+                                <td><button ng-click="vm.delete(vehicle)">Delete</button>  <a ng-click="vm.ShowEdit(vehicle)">Edit</a></td>
                             </tr>
-                           
-</tbody>
 
-                </table>
-                <button ng-disabled="vm.pageNumber == 1" ng-click="vm.fetch(vm.search, vm.pageNumber = vm.pageNumber-1, vm.pageSize)">
-                    Previous
-                </button>
-                {{pageNumber+1}}/{{numberOfPages()}}
-                <button ng-disabled=" vm.datalength< vm.pageSize" ng-click="vm.fetch(vm.search, vm.pageNumber = vm.pageNumber+1, vm.pageSize)">
-                    Next
-                </button> 
+                        </tbody>
+
+                    </table>
+                    <button ng-disabled="vm.pageNumber == 1" ng-click="vm.fetch(vm.search, vm.pageNumber = vm.pageNumber-1, vm.pageSize)">
+                        Previous
+                    </button>
+                    {{pageNumber+1}}/{{numberOfPages()}}
+                    <button ng-disabled=" vm.datalength< vm.pageSize" ng-click="vm.fetch(vm.search, vm.pageNumber = vm.pageNumber+1, vm.pageSize)">
+                        Next
+                    </button>
+                </div>
             </div>
         </div>
         </div>  

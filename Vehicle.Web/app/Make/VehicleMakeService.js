@@ -24,7 +24,15 @@
 
             EditVehicleMake: function (item) {
                 return $http.put(defaulturl + "/" + item.id, {Id:item.Id, Name:item.Name, Abrv:item.Abrv});
-                }
+                },
+
+
+
+            AddVehicleMake: function (item) {
+                return $http.post(defaulturl, { Id: item.Id, Name: item.Name, Abrv: item.Abrv });
+            }
+
+
             };
         }]);
 
