@@ -7,8 +7,8 @@
             var defaulturl = 'http://localhost:1501/api/VehicleMake';
 
             return {
-                GetVehicleMake: function (Filter, pageNumber, pageSize) {
-                    return $http.get(defaulturl + '?Filter=' + Filter + '&pageNumber=' + pageNumber + '&pageSize=' + pageSize);
+                GetVehicleMake: function (search, pageNumber, pageSize) {
+                    return $http.get(defaulturl + '?Filter=' + search + '&pageNumber=' + pageNumber + '&pageSize=' + pageSize);
                 },
 
                 //GetVehicleMake: function (id) {

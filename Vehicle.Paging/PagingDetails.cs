@@ -14,10 +14,10 @@ namespace Vehicle.Paging
         public string Filter { get; set; }
 
 
-        public PagingDetails()
-            : this(null, 1, 5)
-        {
-        }
+        //public PagingDetails()
+        //    : this(null, 1, 5)
+        //{
+        //}
 
         public PagingDetails(string Filter, int pageNumber, int pageSize)
         {

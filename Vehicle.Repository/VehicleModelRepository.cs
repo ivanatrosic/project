@@ -8,6 +8,7 @@ using Vehicle.Paging;
 using AutoMapper;
 using Vehicle.DAL;
 using System.Data.Entity;
+using PagedList;
 
 namespace Vehicle.Repository
 {
@@ -28,37 +29,34 @@ namespace Vehicle.Repository
             return Repository.DeleteAsync<VehicleModel>(id);
         }
 
-        public async Task<List<IVehicleModel>> GetByMakeAsync(string makeId, IPagingDetails pagingDetails)
+        public async Task<IEnumerable<IVehicleModel>> GetByMakeAsync(string makeId, IPagingDetails pagingDetails)
         {
-            return Mapper.Map<List<IVehicleModel>>(
+            var x = Mapper.Map<IEnumerable<IVehicleModel>>(
                 await Repository.WhereAsync<VehicleModel>()
                      .Where(s => s.MakeId == makeId)
                      .OrderBy(s => s.Name)
-                     .Skip(pagingDetails.PageSkip)
-                     .Take(pagingDetails.PageSize)
                      .ToListAsync<VehicleModel>());
+            return x.ToPagedList(pagingDetails.PageNumber, pagingDetails.PageSize);
         }
 
-        public async Task<List<IVehicleModel>> GetAsync(IPagingDetails pagingDetails)
+        public async Task<IEnumerable<IVehicleModel>> GetAsync(IPagingDetails pagingDetails)
         {
             if (pagingDetails.Filter != null)
             {
-                return Mapper.Map<List<IVehicleModel>>(
+                var x = Mapper.Map<IEnumerable<IVehicleModel>>(
                    await Repository.WhereAsync<VehicleModel>()
                      .Where(s => s.Name.Contains(pagingDetails.Filter) || s.Abrv.Contains(pagingDetails.Filter))
                      .OrderBy(s => s.Name)
-                     .Skip(pagingDetails.PageSkip)
-                     .Take(pagingDetails.PageSize)
                      .ToListAsync<VehicleModel>());
+                return x.ToPagedList(pagingDetails.PageNumber, pagingDetails.PageSize);
             }
             else
             {
-                return Mapper.Map<List<IVehicleModel>>(
+                var x = Mapper.Map<IEnumerable<IVehicleModel>>(
                    await Repository.WhereAsync<VehicleModel>()
                         .OrderBy(s => s.Name)
-                        .Skip(pagingDetails.PageSkip)
-                        .Take(pagingDetails.PageSize)
                         .ToListAsync<VehicleModel>());
+                return x.ToPagedList(pagingDetails.PageNumber, pagingDetails.PageSize);
             }
 
         }

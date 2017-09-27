@@ -1,21 +1,19 @@
 ﻿
+using AutoMapper;
+using PagedList;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Description;
-using Vehicle.Service;
-using Vehicle.MVC.Models;
-using AutoMapper;
-using System.Linq.Expressions;
 using Vehicle.Models;
+using Vehicle.MVC.Models;
 using Vehicle.Paging;
-using System.Net.Http;
-using System.Net;
-using PagedList;
+using Vehicle.Service;
 
 namespace Vehicle.MVC.Controllers
 {
-    
+
     public class VehicleMakeController : ApiController
     {
         private IVehicleMakeService VMService { get; set; }
@@ -31,14 +29,14 @@ namespace Vehicle.MVC.Controllers
         public async Task<IHttpActionResult> GetVehicleMake(string Filter, int pageNumber, int pageSize)
         {
             PagingDetails pagingDetails = new PagingDetails(Filter, pageNumber, pageSize);
-            var x = Mapper.Map<List<VehicleMakeData>>(await VMService.GetAsync(pagingDetails));
+            var x = Mapper.Map<IEnumerable<VehicleMakeData>>(await VMService.GetAsync(pagingDetails));
             if (x==null)
             {
                 return NotFound();
             }
             else
             {
-                return Ok(x.ToPagedList(pageNumber, pageSize));
+                return Ok(x);
             }
            
            

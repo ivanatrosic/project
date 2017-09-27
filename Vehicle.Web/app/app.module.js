@@ -1,6 +1,6 @@
 ﻿(function() {
     'use strict';
  
-    angular.module('vehicleApp', ['ui.router', 'angularUtils.directives.dirPagination']);
+    angular.module('vehicleApp', ['ui.router']);
  
 })();

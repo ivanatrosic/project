@@ -40,7 +40,7 @@ namespace Vehicle.Service
         }
 
 
-        public Task<List<IVehicleMake>> GetAsync(IPagingDetails pagingDetails)
+        public Task<IEnumerable<IVehicleMake>> GetAsync(IPagingDetails pagingDetails)
         {
             return Repository.GetAsync(pagingDetails);
         }

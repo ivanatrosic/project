@@ -13,7 +13,7 @@
                     </thead>
                     <tbody>
                         
-                            <tr dir-paginate="vehicle in vm.vehicles|itemsPerPage:vm.pageSize" current-page="vm.pageNumber">
+                            <tr ng-repeat="vehicle in vm.vehicles">
                                 <td>{{vehicle.Id}}</td>
                                 <td>{{vehicle.Name}}</td>
                                 <td>{{vehicle.Abrv}}</td>
@@ -21,13 +21,14 @@
                            
 </tbody>
 
-                    
-
-                    
                 </table>
-                <div class="text-center">
-                    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="Scripts/dirPagination.tpl.html"></dir-pagination-controls>
-                </div>
+                <button ng-disabled="vm.pageNumber == 1" ng-click="vm.fetch(vm.searchTerm, vm.pageNumber = vm.pageNumber-1, vm.pageSize)">
+                    Previous
+                </button>
+                {{pageNumber+1}}/{{numberOfPages()}}
+                <button ng-disabled=" vm.datalength< vm.pageSize" ng-click="vm.fetch(vm.searchTerm, vm.pageNumber = vm.pageNumber+1, vm.pageSize)">
+                    Next
+                </button> 
             </div>
         </div>
         </div>  

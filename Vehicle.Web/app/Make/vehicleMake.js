@@ -11,33 +11,30 @@
 
             function ($scope, MakeService) {
                 var vm = $scope.vm = {};
-                vm.maxSize = 5; // Limit number for pagination display number
-                vm.pageNumber = 1; // Current page number
-                vm.pageSize = 5;//  number of items per page
+                vm.maxSize = 5; 
+                vm.pageNumber = 1; 
+                vm.pageSize = 5;
                 vm.totalCount = 0;
-                vm.Filter = "";
-
+                vm.search = "";
+                vm.datalength = 0;
                   vm.vehicles = [];
 
-                  vm.getMake = function (Filter, pageNumber, pageSize) {
+                  vm.fetch = function (search, pageNumber, pageSize) {
 
-                      console.log("filter " + vm.Filter,"page number " + vm.pageNumber, "page size" + vm.pageSize)
-                      MakeService.GetVehicleMake(vm.Filter, vm.pageNumber, vm.pageSize).then(function (response) {
+                      console.log("filter " + vm.search,"page number " + vm.pageNumber, "page size" + vm.pageSize)
+                      MakeService.GetVehicleMake(vm.search, vm.pageNumber, vm.pageSize).then(function (response) {
                           console.log(response.data);
+                          vm.datalength = response.data.length;
+                          console.log(response.data.length);
                         vm.vehicles = response.data;
                     }, function (response) {
                         console.log('Oops... something went wrong' + data.message);
 
                     });
                 };
-                  vm.pageChangeHandler = function (num) {
-                      console.log('meals page changed to ' + num);
-                  };
-                  vm.getMake();
-                  //This method is calling from pagination number  
-                  vm.pageChanged = function () {
-                      vm.getMake();
-                  }; 
+                  
+                  vm.fetch();
+                 
 
                 vm.get = function (item) {
                     vm.selected = item;

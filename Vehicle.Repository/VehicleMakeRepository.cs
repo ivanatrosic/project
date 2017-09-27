@@ -11,6 +11,7 @@ using Vehicle.Repository;
 using AutoMapper;
 using Vehicle.Models;
 using Vehicle.Paging;
+using PagedList;
 
 namespace Vehicle.Repository
 {
@@ -23,26 +24,29 @@ namespace Vehicle.Repository
         }
 
 
-        public async Task<List<IVehicleMake>> GetAsync(IPagingDetails pagingDetails)
+        public async Task<IEnumerable<IVehicleMake>> GetAsync(IPagingDetails pagingDetails)
         {
+ 
             if (pagingDetails.Filter != null)
             {
-                 return Mapper.Map<List<IVehicleMake>>(
+               
+                 var x = Mapper.Map<IEnumerable<IVehicleMake>>(
                     await Repository.WhereAsync<VehicleMake>()
                       .Where(s => s.Name.Contains(pagingDetails.Filter) ||  s.Abrv.Contains(pagingDetails.Filter))
                       .OrderBy(s => s.Name)
-                      .Skip(pagingDetails.PageSkip)
-                      .Take(pagingDetails.PageSize)
+                      //.Skip(pagingDetails.PageSkip)
+                      //.Take(pagingDetails.PageSize)
                       .ToListAsync<VehicleMake>());
+                return x.ToPagedList(pagingDetails.PageNumber, pagingDetails.PageSize);
+
             }
             else
             {
-                return Mapper.Map<List<IVehicleMake>>(
+                var x = Mapper.Map<IEnumerable<IVehicleMake>>(
                    await Repository.WhereAsync<VehicleMake>()
                         .OrderBy(s => s.Name)
-                        .Skip(pagingDetails.PageSkip)
-                        .Take(pagingDetails.PageSize)
                         .ToListAsync<VehicleMake>());
+                return x.ToPagedList(pagingDetails.PageNumber, pagingDetails.PageSize);
             }
         }
 

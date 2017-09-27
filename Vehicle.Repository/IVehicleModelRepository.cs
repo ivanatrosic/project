@@ -10,8 +10,8 @@ namespace Vehicle.Repository
 {
     public interface IVehicleModelRepository
     {
-        Task<List<IVehicleModel>> GetAsync(IPagingDetails pagingDetails);
-        Task<List<IVehicleModel>> GetByMakeAsync(string filter, IPagingDetails pagingDetails);
+        Task<IEnumerable<IVehicleModel>> GetAsync(IPagingDetails pagingDetails);
+        Task<IEnumerable<IVehicleModel>> GetByMakeAsync(string filter, IPagingDetails pagingDetails);
         Task<int> InsertAsync(IVehicleModel item);
         Task<int> UpdateAsync(IVehicleModel item);
         Task<IVehicleModel> GetAsync(string id);
