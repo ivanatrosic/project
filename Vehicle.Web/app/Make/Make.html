@@ -8,13 +8,35 @@
                          <input type="text" class="form-control" ng-model="vm.search" name="search" placeholder="Search">
             </div>
 
+            <div ng-if="vm.showEdit">
+                <div>
+                    <h2>Edit {{vm.vehicle.Name}}</h2>
+                </div>
+                <form>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="editName"  ng-model="vm.vehicle.Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Abrv</label>
+                        <input type="text" class="form-control" id="editAbrv"  ng-model="vm.vehicle.Abrv">
+                    </div>
+                    <div class="form-group">
+                            <button type="submit" value="Update" ng-click="vm.edit(vm.vehicle)" title="Update">Save</button>
+                        <button  ng-click="vm.Hide()">Cancel</button>
+                        </div>
+                </form>
+
+            </div>
+
             <div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover tabel-condensed">
                     <thead>
                         <tr>
                             <td>Id</td>
                             <td>Name</td>
-                            <td>Advr</td>
+                            <td>Abrv</td>
+                            <td></td>
                         </tr>
                     </thead>
                     <tbody>
@@ -23,6 +45,7 @@
                                 <td>{{vehicle.Id}}</td>
                                 <td>{{vehicle.Name}}</td>
                                 <td>{{vehicle.Abrv}}</td>
+                                <td><button ng-click="vm.delete(vm.vehicles.indexOf(vehicle))">Delete</button>  <a ng-click="vm.ShowEdit(vehicle)">Edit</a></td>
                             </tr>
                            
 </tbody>

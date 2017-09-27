@@ -56,13 +56,13 @@ namespace Vehicle.MVC.Controllers
         }
         [HttpPut]
         [Route("api/VehicleMake/{id}")]
-        public async Task<HttpResponseMessage> PutVehicleMake(string id, VehicleMakeData vehicleMake)
+        public async Task<HttpResponseMessage> PutVehicleMake( VehicleMakeData vehicleMake)
         {
 
-            if (id != vehicleMake.Id)
-            {
-                return Request.CreateResponse(HttpStatusCode.NoContent);
-            }
+            //if (id != vehicleMake.Id)
+            //{
+            //    return Request.CreateResponse(HttpStatusCode.NoContent);
+            //}
 
             var x = await VMService.UpdateAsync(Mapper.Map<VehicleMakeDTO>(vehicleMake));
                 return Request.CreateResponse(HttpStatusCode.OK, vehicleMake);

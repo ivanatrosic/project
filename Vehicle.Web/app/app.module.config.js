@@ -9,10 +9,12 @@
                     url: '/make',
                     templateUrl: 'app/Make/Make.html',
                     controller: 'vehicleMake'
-                }).state('Model', {
+                });
+                $stateProvider.state('Model', {
                     url: '/model',
                     templateUrl: 'app/Model/Model.html',
                     controller: 'vehicleModel'
                 });
+
             }]);
 })();

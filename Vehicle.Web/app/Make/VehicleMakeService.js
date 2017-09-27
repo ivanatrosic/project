@@ -11,10 +11,20 @@
                     return $http.get(defaulturl + '?Filter=' + search + '&pageNumber=' + pageNumber + '&pageSize=' + pageSize);
                 },
 
-                //GetVehicleMake: function (id) {
-                //    return $http.get(defaulturl+ '/'+id);
-                //}
+                DeleteVehicleMake: function (id) {
+                    var req = {
+                        method: 'DELETE',
+                        url: defaulturl + "/" + id,
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                        }
+                    };
+                    return $http(req);
+                },
 
+            EditVehicleMake: function (item) {
+                return $http.put(defaulturl + "/" + item.id, {Id:item.Id, Name:item.Name, Abrv:item.Abrv});
+                }
             };
         }]);
 
