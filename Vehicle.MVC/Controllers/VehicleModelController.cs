@@ -29,14 +29,14 @@ namespace Vehicle.MVC.Controllers
         public async Task<IHttpActionResult> GetVehicleModel(string Filter, int pageNumber, int pageSize)
         {
             PagingDetails pagingDetails = new PagingDetails(Filter, pageNumber, pageSize);
-            var x = Mapper.Map < List < VehicleModelData >>( await VMService.GetAsync(pagingDetails));
+            var x = Mapper.Map < IEnumerable < VehicleModelData >>( await VMService.GetAsync(pagingDetails));
             if (x == null)
             {
                 return NotFound();
             }
             else
             {
-                return Ok(x.ToPagedList(pageNumber, pageSize));
+                return Ok(x);
             }
 
 
@@ -47,14 +47,14 @@ namespace Vehicle.MVC.Controllers
         public async Task<IHttpActionResult> GetByMake(string makeId, int pageNumber, int pageSize)
         {
             PagingDetails pagingDetails = new PagingDetails(null, pageNumber, pageSize);
-            var x = Mapper.Map<List<VehicleModelData>>(await VMService.GetByMakeAsync(makeId, pagingDetails));
+            var x = Mapper.Map<IEnumerable<VehicleModelData>>(await VMService.GetByMakeAsync(makeId, pagingDetails));
 
             if (x == null)
             {
                 return NotFound();
             }
 
-            return Ok(x.ToPagedList(pageNumber, pageSize));
+            return Ok(x);
         }
 
         [HttpGet]
