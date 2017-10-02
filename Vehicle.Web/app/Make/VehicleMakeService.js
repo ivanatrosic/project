@@ -11,6 +11,9 @@
                     return $http.get(defaulturl + '?Filter=' + search + '&pageNumber=' + pageNumber + '&pageSize=' + pageSize);
                 },
 
+                GetOneMake: function (id) {
+                    return $http.get(defaulturl + "/"+ id );
+                },
                 DeleteVehicleMake: function (id) {
                     var req = {
                         method: 'DELETE',

@@ -68,7 +68,11 @@
   <ItemGroup>
     <Content Include="app\app.module.config.js" />
     <None Include="packages.config" />
-    <Content Include="app\Make\Make.html" />
+    <Content Include="app\Make\controllers\VehicleMakeCreate.js" />
+    <Content Include="app\Make\views\CreateMake.html" />
+    <Content Include="app\Make\views\DeleteMake.html" />
+    <Content Include="app\Make\views\Make.html" />
+    <Content Include="app\Make\views\UpdateMake.html" />
     <Content Include="app\Model\Model.html" />
     <Content Include="app\Model\vehicleModel.js" />
     <Content Include="app\Model\VehicleModelService.js" />
@@ -117,7 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.module.js" />
-    <Content Include="app\Make\vehicleMake.js" />
+    <Content Include="app\Make\controllers\vehicleMake.js" />
     <Content Include="app\Make\VehicleMakeService.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />

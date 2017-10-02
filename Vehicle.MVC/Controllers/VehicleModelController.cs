@@ -83,7 +83,7 @@ namespace Vehicle.MVC.Controllers
         }
         [HttpPost]
         [Route("api/VehicleModel")]
-        public async Task<IHttpActionResult> PostVehicleMake(VehicleModelData vehicleModel)
+        public async Task<IHttpActionResult> PostVehicleModel(VehicleModelData vehicleModel)
         {
             if (!ModelState.IsValid)
             {

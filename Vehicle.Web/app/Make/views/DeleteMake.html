@@ -1,0 +1,8 @@
+﻿<div ng-controller="VehicleMakeDelete as vm" ng-init="vm.getvehicle()">
+    
+    Are you sure you want to delete <b>"{{vm.vehicledelete.Name}}"</b>?
+
+    <button ui-sref="Make" class="btn btn-default" type="submit" ng-click="vm.delete(vm.vehicledelete)">Yes!</button>
+    <button class="btn btn-default" ui-sref="Make">No!</button>
+
+</div>

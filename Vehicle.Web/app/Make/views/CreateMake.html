@@ -1,0 +1,34 @@
+﻿<div ng-controller="VehicleMakeCreate as vm">
+    <div class="container">
+        <div class="row">
+            <h1>Vehicle Make</h1>
+            <h3><a ui-sref="Make">Return to table</a></h3>
+            <div>
+                <div>
+                    <h2>Add</h2>
+                </div>
+                <form>
+                    <div class="form-group">
+                        <label for="name">Id</label>
+                        <input type="text" class="form-control" id="addId" ng-model="vm.vehicle.Id">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="addName" ng-model="vm.vehicle.Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Abrv</label>
+                        <input type="text" class="form-control" id="addAbrv" ng-model="vm.vehicle.Abrv">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" value="Update" ng-click="vm.add(vm.vehicle)" title="Update">Save</button>
+                    </div>
+                </form>
+
+            </div>
+ 
+
+                
+        </div>
+    </div>
+</div>
