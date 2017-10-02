@@ -43,6 +43,20 @@ namespace Vehicle.MVC.Controllers
         }
 
         [HttpGet]
+        [Route("api/VehicleMake")]
+        public async Task<IHttpActionResult> GetVehicleMake()
+        {
+            var x = Mapper.Map<IEnumerable<VehicleMakeData>>(await VMService.GetAsync());
+            if (x == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(x);
+        }
+
+
+        [HttpGet]
         [Route("api/VehicleMake/{id}")]
         public async Task<IHttpActionResult> GetVehicleMake(string id)
         {

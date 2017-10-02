@@ -1,0 +1,29 @@
+﻿<div ng-controller="VehicleModelUpdate as vm" ng-init="vm.getvehicle()">
+    <div class="container">
+        <div class="row">
+            <h1>Vehicle Model</h1>
+            <h3><a ui-sref="Make">Return to table</a></h3>
+
+            <div>
+                <h2>Edit {{vm.vehicleupdate.Name}}</h2>
+            </div>
+            <form>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="editName" ng-model="vm.vehicleupdate.Name">
+                </div>
+                <div class="form-group">
+                    <label for="name">Abrv</label>
+                    <input type="text" class="form-control" id="editAbrv" ng-model="vm.vehicleupdate.Abrv">
+                </div>
+                <div class="form-group">
+                    <button ui-sref="Model" type="submit" value="Update" ng-click="vm.edit(vm.vehicleupdate)" title="Update">Save</button>
+                </div>
+            </form>
+
+        </div>
+
+
+
+    </div>
+</div>

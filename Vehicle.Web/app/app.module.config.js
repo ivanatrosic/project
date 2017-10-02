@@ -27,8 +27,23 @@
                 });
                 $stateProvider.state('Model', {
                     url: '/model',
-                    templateUrl: 'app/Model/Model.html',
+                    templateUrl: 'app/Model/views/Model.html',
                     controller: 'vehicleModel'
+                });
+                $stateProvider.state('CreateModel', {
+                    url: '/model/create',
+                    templateUrl: 'app/Model/views/CreateModel.html',
+                    controller: 'VehicleModelCreate'
+                });
+                $stateProvider.state('UpdateModel', {
+                    url: '/model/update/:id',
+                    templateUrl: 'app/Model/views/UpdateModel.html',
+                    controller: 'VehicleModelUpdate'
+                });
+                $stateProvider.state('DeleteModel', {
+                    url: '/model/delete/:id',
+                    templateUrl: 'app/Model/views/DeleteModel.html',
+                    controller: 'VehicleModelDelete'
                 });
 
             }]);

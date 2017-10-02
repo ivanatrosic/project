@@ -1,21 +1,28 @@
-﻿<div ng-controller="vehicleMake as vm" ng-init="m.fetch(vm.search=null, vm.pageNumber=1, vm.pageSize)">
+﻿<div ng-controller="vehicleModel as vm" ng-init="m.fetch(vm.search=null, vm.pageNumber=1, vm.pageSize)">
     <div class="container">
         <div class="row">
-            <h1>Vehicle Make</h1>
+            <h1>Vehicle Model</h1>
 
-            <a ui-sref="CreateMake">Add new!</a>
 
+            <a ui-sref="CreateModel">Add new!</a>
 
                 <div class="input-group">
                     <button class="btn btn-default" type="submit" ng-click="vm.fetch(vm.search, vm.pageNumber=1, vm.pageSize)">Search</button>
                     <input type="text" class="form-control" ng-model="vm.search" name="search" placeholder="Search">
                 </div>
 
+
+            <select ng-model="vm.MakeIdSearch" ng-options="vehiclemake.Id as vehiclemake.Name for vehiclemake in vm.vehiclemakes" ng-change="vm.searchByMake(vm.MakeIdSearch, vm.pageNumber=1, vm.pageSize)">
+            <option value="">Search By Make</option>
+
+            </select>
+                <button ng-click="vm.fetch(vm.search, vm.pageNumber=1, vm.pageSize)">Cancel Search By MAKE  </button>
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered table-hover tabel-condensed">
                         <thead>
                             <tr>
                                 <td>Id</td>
+                                <td>MakeId</td>
                                 <td>Name</td>
                                 <td>Abrv</td>
                                 <td></td>
@@ -25,9 +32,10 @@
 
                             <tr ng-repeat="vehicle in vm.vehicles">
                                 <td>{{vehicle.Id}}</td>
+                                <td>{{vehicle.MakeId}}</td>
                                 <td>{{vehicle.Name}}</td>
                                 <td>{{vehicle.Abrv}}</td>
-                                <td><a ui-sref="DeleteMake({id: vehicle.Id})">Delete</a>  <a ui-sref="UpdateMake({id: vehicle.Id})">Edit</a></td>
+                                <td><a ui-sref="DeleteModel({id: vehicle.Id})">Delete</a>  <a ui-sref="UpdateModel({id: vehicle.Id})">Edit</a></td>
                             </tr>
 
                         </tbody>
@@ -40,8 +48,8 @@
                     <button ng-disabled=" vm.datalength< vm.pageSize" ng-click="vm.fetch(vm.search, vm.pageNumber = vm.pageNumber+1, vm.pageSize)">
                         Next
                     </button>
-                </div>
-            
+
+            </div>
         </div>
-        </div>  
     </div>
+</div>

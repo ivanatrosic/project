@@ -1,0 +1,41 @@
+﻿<div ng-controller="VehicleModelCreate as vm" >
+    <div class="container">
+        <div class="row">
+            <h1>Vehicle Model</h1>
+            <h3><a ui-sref="Model">Return to table</a></h3>
+            <div>
+                <div>
+                    <h2>Add</h2>
+                </div>
+                <form>
+                    <div class="form-group">
+                        <label for="name">Id</label>
+                        <input type="text" class="form-control" id="addId" ng-model="vm.vehicle.Id">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">MakeId</label>
+                        <select ng-model="vm.vehicle.MakeId" ng-options="vehiclemake.Id as vehiclemake.Name for vehiclemake in vm.vehiclemakes" ng-change="vm.searchByMake(vm.MakeIdSearch, vm.pageNumber=1, vm.pageSize)">
+                            <option value="">Choose Vehicle Make</option>
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="addName" ng-model="vm.vehicle.Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Abrv</label>
+                        <input type="text" class="form-control" id="addAbrv" ng-model="vm.vehicle.Abrv">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" value="Update" ng-click="vm.add(vm.vehicle)" title="Update" ui-sref="Model">Save</button>
+                    </div>
+                </form>
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>

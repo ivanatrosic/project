@@ -19,30 +19,21 @@
                 vm.datalength = 0;
                 vm.vehicles = [];
                 vm.vehicle = {};
-                vm.showTable = true;
-                vm.showEdit = false;
-                vm.showAdd = false;
+                vm.vehiclemakes = [];
                 vm.MakeIdSearch = null;
 
-                vm.ShowEdit = function (data) {
-                    vm.showTable = false,
-                        vm.showEdit = true,
-                        vm.showAdd = false,
-                        vm.vehicle = data;
-                };
+                vm.getmakes = function () {
 
-                vm.Hide = function () {
-                    vm.showTable = true,
-                        vm.showAdd = false,
-                        vm.showEdit = false;
+                    ModelService.GetMakes().then(function (response) {
+                        vm.vehiclemakes = response.data;
+                        console.log(vm.vehiclemakes);
 
-                };
-                vm.ShowAdd = function () {
-                    vm.showTable = false,
-                        vm.showAdd = true,
-                        vm.showEdit = false;
+                    }, function (response) {
+                        console.log('Unable to add' + response.message);
 
+                    });
                 };
+                vm.getmakes();
 
                 vm.fetch = function (search, pageNumber, pageSize) {
                     console.log("filter " + vm.search, "page number " + vm.pageNumber, "page size" + vm.pageSize);

@@ -32,9 +32,14 @@
 
                 GetVehicleByMake: function (makeId, pageNumber, pageSize) {
                     return $http.get(defaulturl + '?makeId=' + makeId + '&pageNumber=' + pageNumber + '&pageSize=' + pageSize);
+                },
+                GetOneModel: function (id) {
+                    return $http.get(defaulturl + "/" + id);
+                },
+
+                GetMakes: function () {
+                    return $http.get('http://localhost:1501/api/VehicleMake');
                 }
-
-
             };
         }]);
 

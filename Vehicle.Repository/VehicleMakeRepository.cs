@@ -77,7 +77,15 @@ namespace Vehicle.Repository
             return Repository.DeleteAsync<VehicleMake>(id);
         }
 
- 
+        public async Task<IEnumerable<IVehicleMake>> GetAsync()
+        {
+            return  Mapper.Map<IEnumerable<IVehicleMake>>(
+                   await Repository.WhereAsync<VehicleMake>()
+                     .OrderBy(s => s.Name)
+                     .ToListAsync<VehicleMake>());
+        }
+
+
 
 
 

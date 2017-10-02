@@ -56,5 +56,10 @@ namespace Vehicle.Service
         {
             return Repository.DeleteAsync(id);
         }
+
+        public Task<IEnumerable<IVehicleMake>> GetAsync()
+        {
+            return Repository.GetAsync();
+        }
     }
 }
