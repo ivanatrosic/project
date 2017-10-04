@@ -43,7 +43,7 @@
                         console.log(response.data.length);
                         vm.vehicles = response.data;
                     }, function (response) {
-                        console.log('Oops... something went wrong' + data.message);
+                        console.log('Oops... something went wrong' + response.message);
 
                     });
                 };

@@ -1,6 +1,7 @@
 ﻿
 using AutoMapper;
 using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -13,104 +14,149 @@ using Vehicle.Service;
 
 namespace Vehicle.MVC.Controllers
 {
-
+    [RoutePrefix("api/VehicleMake")]
     public class VehicleMakeController : ApiController
     {
+        #region Properites
         private IVehicleMakeService VMService { get; set; }
+        #endregion Properites
+
+
+        #region Constructors
         public VehicleMakeController(IVehicleMakeService vehicleMakeService)
         {
             VMService = vehicleMakeService;
         }
+        #endregion Constructors
 
 
 
-        [Route("api/VehicleMake")]
+
+        #region Methods
+        [Route("")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetVehicleMake(string Filter, int pageNumber, int pageSize)
+        public async Task<HttpResponseMessage> GetVehicleMake(string Filter, int pageNumber, int pageSize)
         {
-            PagingDetails pagingDetails = new PagingDetails(Filter, pageNumber, pageSize);
+            try
+            {
+                PagingDetails pagingDetails = new PagingDetails(Filter, pageNumber, pageSize);
             var x = Mapper.Map<IEnumerable<VehicleMakeData>>(await VMService.GetAsync(pagingDetails));
             if (x==null)
             {
-                return NotFound();
-            }
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+                }
             else
             {
-                return Ok(x);
+                return Request.CreateResponse(HttpStatusCode.OK, x);
+                }
             }
-           
-           
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.ToString());
+            }
+
         }
 
         [HttpGet]
-        [Route("api/VehicleMake")]
-        public async Task<IHttpActionResult> GetVehicleMake()
+        [Route("")]
+        public async Task<HttpResponseMessage> GetVehicleMake()
         {
+            try
+            { 
             var x = Mapper.Map<IEnumerable<VehicleMakeData>>(await VMService.GetAsync());
             if (x == null)
             {
-                return NotFound();
+                return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            return Ok(x);
+            return Request.CreateResponse(HttpStatusCode.OK, x);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.ToString());
+            }
         }
 
 
         [HttpGet]
-        [Route("api/VehicleMake/{id}")]
-        public async Task<IHttpActionResult> GetVehicleMake(string id)
+        [Route("{id}")]
+        public async Task<HttpResponseMessage> GetVehicleMake(Guid id)
         {
+            try
+            { 
             var x = Mapper.Map <VehicleMakeData>( await VMService.GetAsync(id));
             if (x == null)
             {
-                return NotFound();
+                    return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            return Ok(x);
+                return Request.CreateResponse(HttpStatusCode.OK, x);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.ToString());
+            }
         }
         [HttpPut]
-        [Route("api/VehicleMake/{id}")]
+        [Route("{id}")]
         public async Task<HttpResponseMessage> PutVehicleMake( VehicleMakeData vehicleMake)
         {
-
-            //if (id != vehicleMake.Id)
-            //{
-            //    return Request.CreateResponse(HttpStatusCode.NoContent);
-            //}
+            try
+            { 
 
             var x = await VMService.UpdateAsync(Mapper.Map<VehicleMakeDTO>(vehicleMake));
                 return Request.CreateResponse(HttpStatusCode.OK, vehicleMake);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.ToString());
+            }
 
         }
         [HttpPost]
-        [Route("api/VehicleMake")]
-        public async Task<IHttpActionResult> PostVehicleMake(VehicleMakeData vehicleMake)
+        [Route("")]
+        public async Task<HttpResponseMessage> PostVehicleMake(VehicleMakeData vehicleMake)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return Ok(vehicleMake);
+                vehicleMake.Id = Guid.NewGuid();
+                if (!ModelState.IsValid)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, vehicleMake);
+                }
+                else
+                {
+                    var x = await VMService.InsertAsync(Mapper.Map<VehicleMakeDTO>(vehicleMake));
+                    return Request.CreateResponse(HttpStatusCode.OK, x);
+
+                }
             }
-            else
+            catch (Exception e)
             {
-                var x = await VMService.InsertAsync(Mapper.Map<VehicleMakeDTO>(vehicleMake));
-                    return Ok(x);
-  
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.ToString());
             }
 
         }
 
         [HttpDelete]
-        [Route("api/VehicleMake/{id}")]
-        public async Task<HttpResponseMessage> DeleteVehicleMake(string id)
+        [Route("{id}")]
+        public async Task<HttpResponseMessage> DeleteVehicleMake(Guid id)
         {
-            var x = await VMService.DeleteAsync(id);
-            if (x != 1)
+            try
             {
-                return Request.CreateResponse(HttpStatusCode.NoContent);
+                var x = await VMService.DeleteAsync(id);
+                if (x != 1)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NoContent);
+                }
+
+                return Request.CreateResponse(HttpStatusCode.OK, x);
             }
-
-            return Request.CreateResponse(HttpStatusCode.OK, x);
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.ToString());
+            }
         }
-
+        #endregion Methods
     }
 }

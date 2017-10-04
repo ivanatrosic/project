@@ -9,20 +9,20 @@ namespace Vehicle.DAL
     [Table("VehicleModel")]
     public partial class VehicleModel
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string Id { get; set; }
+        #region Properites
+        public Guid Id { get; set; }
 
-        public string MakeId { get; set; }
+        public Guid MakeId { get; set; }
 
-        [Required]
-        [StringLength(50)]
+
         public string Name { get; set; }
 
-        [StringLength(50)]
+
         public string Abrv { get; set; }
 
 
 
         public virtual VehicleMake VehicleMake { get; set; }
+        #endregion Properites
     }
 }

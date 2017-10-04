@@ -7,7 +7,7 @@ namespace Vehicle.MVC.Models
 {
     public class VehicleMakeData
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Abrv { get; set; }
     }

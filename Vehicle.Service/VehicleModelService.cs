@@ -21,37 +21,86 @@ namespace Vehicle.Service
 
         public Task<int> DeleteAsync(IVehicleModel item)
         {
+            try
+            { 
             return Repository.DeleteAsync(item);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
-        public Task<int> DeleteAsync(string id)
+        public Task<int> DeleteAsync(Guid? id)
         {
+            try { 
             return Repository.DeleteAsync(id);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
-        public Task<IEnumerable<IVehicleModel>> GetByMakeAsync(string makeId, IPagingDetails pagingDetails)
+        public Task<IEnumerable<IVehicleModel>> GetByMakeAsync(Guid? makeId, IPagingDetails pagingDetails)
         {
+            try
+            { 
             return Repository.GetByMakeAsync(makeId, pagingDetails);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public Task<IEnumerable<IVehicleModel>> GetAsync(IPagingDetails pagingDetails)
         {
+            try
+            { 
             return Repository.GetAsync(pagingDetails);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
-        public Task<IVehicleModel> GetAsync(string Id)
+        public Task<IVehicleModel> GetAsync(Guid? Id)
         {
+            try
+            { 
             return Repository.GetAsync(Id);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public Task<int> InsertAsync(IVehicleModel item)
         {
+            try
+            {
             return Repository.InsertAsync(item);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public Task<int> UpdateAsync(IVehicleModel item)
         {
+            try
+            {
             return Repository.UpdateAsync(item);
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

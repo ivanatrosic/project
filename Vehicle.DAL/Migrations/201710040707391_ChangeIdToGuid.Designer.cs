@@ -7,13 +7,13 @@ namespace Vehicle.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-beta1-60406")]
-    public sealed partial class _1 : IMigrationMetadata
+    public sealed partial class ChangeIdToGuid : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ChangeIdToGuid));
         
         string IMigrationMetadata.Id
         {
-            get { return "201709202037561_1"; }
+            get { return "201710040707391_ChangeIdToGuid"; }
         }
         
         string IMigrationMetadata.Source

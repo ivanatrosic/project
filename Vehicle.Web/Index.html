@@ -9,40 +9,53 @@
     <title>Vehicle App</title>
 </head>
 <body ng-app="vehicleApp">
-    <ul>
-    <li><a ui-sref="Make">VehicleMake link</a></li>
-    <li><a ui-sref="Model">VehicleModel link</a></li>
-</ul>
-  
-    <div ui-view> </div>
+    <!--Navigation-->
+    <nav class="navbar navbar-default" >
+            <ul class="nav navbar-nav">
+                <li><a ui-sref="Make">VehicleMake</a></li>
+                <li><a ui-sref="Model">VehicleModel</a></li>
+                
+            </ul>
+        </nav>
 
-    <!--Lib-->
-    <script src="Scripts/angular.js"></script>
-    <script src="Scripts/jquery-1.9.0.js"></script>
-    <script src="Scripts/bootstrap.js"></script>
-    <script src="Scripts/angular-ui.js"></script>
-    <script src="Scripts/angular-ui-router.js"></script>
-    <script src="Scripts/angular-route.js"></script>
-    <script src="Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
-    <script src="Scripts/angular-ui/ui-bootstrap.js"></script>
-    <script src="Scripts/dirPagination.js"></script>
+    <!--View-->
+    <div class="container body-content">
+        <div ui-view></div>
+        <footer>
+             <p>&copy; 2017</p>
+        </footer>
 
-    <!--app-->
-    <script src="app/app.module.js"></script>
-    <script src="app/app.module.config.js"></script>
+       
+    </div>
+    
 
-    <!--Make-->
-    <script src="app/Make/controllers/vehicleMake.js"></script>
-    <script src="app/Make/controllers/VehicleMakeCreate.js"></script>
-    <script src="app/Make/controllers/VehicleMakeUpdate.js"></script>
-    <script src="app/Make/controllers/VehicleMakeDelete.js"></script>
-    <script src="app/Make/VehicleMakeService.js"></script>
+                <!--Lib-->
+                <script src="Scripts/angular.js"></script>
+                <script src="Scripts/jquery-1.9.0.js"></script>
+                <script src="Scripts/bootstrap.js"></script>
+                <script src="Scripts/angular-ui.js"></script>
+                <script src="Scripts/angular-ui-router.js"></script>
+                <script src="Scripts/angular-route.js"></script>
+                <script src="Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+                <script src="Scripts/angular-ui/ui-bootstrap.js"></script>
+                <script src="Scripts/dirPagination.js"></script>
 
-    <!--Model-->
-    <script src="app/Model/controllers/vehicleModel.js"></script>
-    <script src="app/Model/controllers/VehicleModelCreate.js"></script>
-    <script src="app/Model/controllers/VehicleModelDelete.js"></script>
-    <script src="app/Model/controllers/VehicleModelUpdate.js"></script>
-    <script src="app/Model/VehicleModelService.js"></script>
+                <!--app-->
+                <script src="app/app.module.js"></script>
+                <script src="app/app.module.config.js"></script>
+
+                <!--Make-->
+                <script src="app/Make/controllers/vehicleMake.js"></script>
+                <script src="app/Make/controllers/VehicleMakeCreate.js"></script>
+                <script src="app/Make/controllers/VehicleMakeUpdate.js"></script>
+                <script src="app/Make/controllers/VehicleMakeDelete.js"></script>
+                <script src="app/Make/VehicleMakeService.js"></script>
+
+                <!--Model-->
+                <script src="app/Model/controllers/vehicleModel.js"></script>
+                <script src="app/Model/controllers/VehicleModelCreate.js"></script>
+                <script src="app/Model/controllers/VehicleModelDelete.js"></script>
+                <script src="app/Model/controllers/VehicleModelUpdate.js"></script>
+                <script src="app/Model/VehicleModelService.js"></script>
 </body>
 </html>

@@ -7,12 +7,12 @@ using Ninject.Modules;
 
 namespace Vehicle.Service
 {
-    class Bindings : NinjectModule
+    class DIModule : NinjectModule
     {
         public override void Load()
         {
             Bind<IVehicleMakeService>().To<VehicleMakeService>();
-
+            Bind<IVehicleModelService>().To<VehicleModelService>();
         }
     }
 }

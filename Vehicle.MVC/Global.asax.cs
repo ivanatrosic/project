@@ -8,6 +8,7 @@ using System.Web.Routing;
 using Vehicle.Models;
 using System.Web.Http;
 using Vehicle.MVC.App_Start;
+using AutoMapper;
 
 namespace Vehicle.MVC
 {
@@ -20,7 +21,6 @@ namespace Vehicle.MVC
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            AutoMapper.Mapper.Initialize(cfg => cfg.AddProfile<AutoMaperModels>());
             AutoMapperConfig.RegisterMappings();
 
 

@@ -4,26 +4,22 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using Vehicle.Models;
 using Vehicle.Repository;
 using Vehicle.Paging;
+using Vehicle.Models;
 
-namespace Vehicle.Repository
+namespace Vehicle.Service
 {
-    public interface IVehicleMakeRepository
+   public interface IVehicleMakeService
     {
-
-        Task<IEnumerable<IVehicleMake>> GetAsync(IPagingDetails pagingDetails);
-        Task<IEnumerable<IVehicleMake>> GetAsync();
+ 
         Task<int> InsertAsync(IVehicleMake item);
         Task<int> UpdateAsync(IVehicleMake item);
-        Task<IVehicleMake> GetAsync(string id);
         Task<int> DeleteAsync(IVehicleMake item);
-        Task<int> DeleteAsync(string id);
-
-
-
-
+        Task<int> DeleteAsync(Guid? id);
+        Task<IEnumerable<IVehicleMake>> GetAsync(IPagingDetails pagingDetails);
+        Task<IEnumerable<IVehicleMake>> GetAsync();
+        Task<IVehicleMake> GetAsync(Guid? Id);
 
     }
 }

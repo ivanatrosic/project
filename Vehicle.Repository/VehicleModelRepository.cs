@@ -15,33 +15,61 @@ namespace Vehicle.Repository
     public class VehicleModelRepository : IVehicleModelRepository
     {
         protected IRepository Repository { get; set; }
+
+
         public VehicleModelRepository(IRepository repository)
         {
             Repository = repository;
         }
+
+
+
         public Task<int> DeleteAsync(IVehicleModel item)
         {
-            return Repository.DeleteAsync<VehicleModel>(Mapper.Map<VehicleModel>(item));
+            try
+            {
+                return Repository.DeleteAsync<VehicleModel>(Mapper.Map<VehicleModel>(item));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
-        public Task<int> DeleteAsync(string id)
+        public Task<int> DeleteAsync(Guid? id)
         {
-            return Repository.DeleteAsync<VehicleModel>(id);
+            try
+            {
+                return Repository.DeleteAsync<VehicleModel>(id);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
-        public async Task<IEnumerable<IVehicleModel>> GetByMakeAsync(string makeId, IPagingDetails pagingDetails)
+        public async Task<IEnumerable<IVehicleModel>> GetByMakeAsync(Guid? makeId, IPagingDetails pagingDetails)
         {
-            var x = Mapper.Map<IEnumerable<IVehicleModel>>(
-                await Repository.WhereAsync<VehicleModel>()
-                     .Where(s => s.MakeId == makeId)
-                     .OrderBy(s => s.Name)
-                     .ToListAsync<VehicleModel>());
-            return x.ToPagedList(pagingDetails.PageNumber, pagingDetails.PageSize);
+            try
+            {
+                var x = Mapper.Map<IEnumerable<IVehicleModel>>(
+                    await Repository.WhereAsync<VehicleModel>()
+                         .Where(s => s.MakeId == makeId)
+                         .OrderBy(s => s.Name)
+                         .ToListAsync<VehicleModel>());
+                return x.ToPagedList(pagingDetails.PageNumber, pagingDetails.PageSize);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public async Task<IEnumerable<IVehicleModel>> GetAsync(IPagingDetails pagingDetails)
         {
-            if (pagingDetails.Filter != null)
+            try
+            {
+                if (pagingDetails.Filter != null)
             {
                 var x = Mapper.Map<IEnumerable<IVehicleModel>>(
                    await Repository.WhereAsync<VehicleModel>()
@@ -58,22 +86,48 @@ namespace Vehicle.Repository
                         .ToListAsync<VehicleModel>());
                 return x.ToPagedList(pagingDetails.PageNumber, pagingDetails.PageSize);
             }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
 
         }
 
-        public async Task<IVehicleModel> GetAsync(string id)
+        public async Task<IVehicleModel> GetAsync(Guid? id)
         {
+            try
+            { 
             return Mapper.Map<IVehicleModel>(await Repository.GetOneAsync<VehicleModel>(id));
         }
+            catch (Exception e)
+            {
+                throw e;
+            }
+}
 
         public Task<int> InsertAsync(IVehicleModel item)
         {
+            try
+            { 
             return Repository.InsertAsync<VehicleModel>(Mapper.Map<VehicleModel>(item));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public Task<int> UpdateAsync(IVehicleModel item)
         {
+            try
+            { 
             return Repository.UpdateAsync<VehicleModel>(Mapper.Map<VehicleModel>(item));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

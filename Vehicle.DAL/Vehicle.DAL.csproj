@@ -52,10 +52,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IVehicleContext.cs" />
-    <Compile Include="Migrations\201709202037561_1.cs" />
-    <Compile Include="Migrations\201709202037561_1.Designer.cs">
-      <DependentUpon>201709202037561_1.cs</DependentUpon>
+    <Compile Include="Mapping\VehicleMakeMap.cs" />
+    <Compile Include="Mapping\VehicleModelMap.cs" />
+    <Compile Include="Migrations\201710040707391_ChangeIdToGuid.cs" />
+    <Compile Include="Migrations\201710040707391_ChangeIdToGuid.Designer.cs">
+      <DependentUpon>201710040707391_ChangeIdToGuid.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\ChangeIdToGuid.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,8 +73,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201709202037561_1.resx">
-      <DependentUpon>201709202037561_1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710040707391_ChangeIdToGuid.resx">
+      <DependentUpon>201710040707391_ChangeIdToGuid.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

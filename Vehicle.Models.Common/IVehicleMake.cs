@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Vehicle.Models
 {
-    public interface IVehicleModel
+    public interface IVehicleMake
     {
-        string Id { get; set; }
-        string MakeId { get; set; }
+        Guid Id { get; set; }
         string Name { get; set; }
         string Abrv { get; set; }
-
     }
 }

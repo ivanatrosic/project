@@ -8,18 +8,22 @@ using Vehicle.Models;
 using Vehicle.Repository;
 using Vehicle.Paging;
 
-namespace Vehicle.Service
+namespace Vehicle.Repository
 {
-   public interface IVehicleMakeService
+    public interface IVehicleMakeRepository
     {
- 
-        Task<int> InsertAsync(IVehicleMake item);
-        Task<int> UpdateAsync(IVehicleMake item);
-        Task<int> DeleteAsync(IVehicleMake item);
-        Task<int> DeleteAsync(string id);
+
         Task<IEnumerable<IVehicleMake>> GetAsync(IPagingDetails pagingDetails);
         Task<IEnumerable<IVehicleMake>> GetAsync();
-        Task<IVehicleMake> GetAsync(string Id);
+        Task<int> InsertAsync(IVehicleMake item);
+        Task<int> UpdateAsync(IVehicleMake item);
+        Task<IVehicleMake> GetAsync(Guid? id);
+        Task<int> DeleteAsync(IVehicleMake item);
+        Task<int> DeleteAsync(Guid? id);
+
+
+
+
 
     }
 }

@@ -14,6 +14,8 @@ using Vehicle.Service;
 
 namespace Vehicle.MVC.Controllers
 {
+
+    [RoutePrefix("api/VehicleModel")]
     public class VehicleModelController : ApiController
     {
         private IVehicleModelService VMService { get; set; }
@@ -24,86 +26,114 @@ namespace Vehicle.MVC.Controllers
 
 
 
-        [Route("api/VehicleModel")]
+        [Route("")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetVehicleModel(string Filter, int pageNumber, int pageSize)
+        public async Task<HttpResponseMessage> GetVehicleModel(string Filter, int pageNumber, int pageSize)
         {
-            PagingDetails pagingDetails = new PagingDetails(Filter, pageNumber, pageSize);
-            var x = Mapper.Map < IEnumerable < VehicleModelData >>( await VMService.GetAsync(pagingDetails));
-            if (x == null)
+            try
             {
-                return NotFound();
+                PagingDetails pagingDetails = new PagingDetails(Filter, pageNumber, pageSize);
+                var x = Mapper.Map<IEnumerable<VehicleModelData>>(await VMService.GetAsync(pagingDetails));
+                if (x == null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, x);
+                }
             }
-            else
+            catch (Exception e)
             {
-                return Ok(x);
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.ToString());
             }
-
 
         }
         [HttpGet]
         [AcceptVerbs("GET")]
-        [Route("api/VehicleModel")]
-        public async Task<IHttpActionResult> GetByMake(string makeId, int pageNumber, int pageSize)
+        [Route("")]
+        public async Task<HttpResponseMessage> GetByMake(Guid makeId, int pageNumber, int pageSize)
         {
+            try
+            { 
             PagingDetails pagingDetails = new PagingDetails(null, pageNumber, pageSize);
             var x = Mapper.Map<IEnumerable<VehicleModelData>>(await VMService.GetByMakeAsync(makeId, pagingDetails));
 
             if (x == null)
             {
-                return NotFound();
+                return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            return Ok(x);
+            return Request.CreateResponse(HttpStatusCode.OK, x);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.ToString());
+            }
         }
 
         [HttpGet]
-        [Route("api/VehicleModel/{id}")]
-        public async Task<IHttpActionResult> GetVehicleModel(string id)
+        [Route("{id}")]
+        public async Task<HttpResponseMessage> GetVehicleModel(Guid id)
         {
+            try
+            { 
             var x = Mapper.Map<VehicleModelData>(await VMService.GetAsync(id));
             if (x == null)
             {
-                return NotFound();
+                return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            return Ok(x);
+            return Request.CreateResponse(HttpStatusCode.OK, x);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.ToString());
+            }
         }
         [HttpPut]
-        [Route("api/VehicleModel/{id}")]
+        [Route("{id}")]
         public async Task<HttpResponseMessage> PutVehicleModel(VehicleModelData vehicleModel)
         {
-
+            try
+            { 
             var x = await VMService.UpdateAsync(Mapper.Map<VehicleModelDTO>(vehicleModel));
             
                 return Request.CreateResponse(HttpStatusCode.OK, vehicleModel);
 
-
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.ToString());
+            }
 
         }
         [HttpPost]
-        [Route("api/VehicleModel")]
-        public async Task<IHttpActionResult> PostVehicleModel(VehicleModelData vehicleModel)
+        [Route("")]
+        public async Task<HttpResponseMessage> PostVehicleModel(VehicleModelData vehicleModel)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return Ok(vehicleModel);
-            }
-            else
-            {
+                vehicleModel.Id = Guid.NewGuid();
                 var x = await VMService.InsertAsync(Mapper.Map<IVehicleModel>(vehicleModel));
-                return Ok(x);
+                    return Request.CreateResponse(HttpStatusCode.OK, x);
 
+                
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.ToString());
             }
 
-  
 
         }
 
         [HttpDelete]
-        [Route("api/VehicleModel/{id}")]
-        public async Task<HttpResponseMessage> DeleteVehicleModel(string id)
+        [Route("{id}")]
+        public async Task<HttpResponseMessage> DeleteVehicleModel(Guid id)
         {
+            try
+            { 
             var x = await VMService.DeleteAsync(id);
             if (x != 1)
             {
@@ -111,6 +141,11 @@ namespace Vehicle.MVC.Controllers
             }
 
             return Request.CreateResponse(HttpStatusCode.OK, x);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.ToString());
+            }
         }
     }
 }

@@ -5,6 +5,7 @@ namespace Vehicle.DAL
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using SqlProviderServices = System.Data.Entity.SqlServer.SqlProviderServices;
+    using Vehicle.DAL.Mapping;
 
     public partial class VehicleContext : DbContext, IVehicleContext
     {
@@ -16,32 +17,19 @@ namespace Vehicle.DAL
             this.Configuration.ProxyCreationEnabled = false;
         }
 
+        public static VehicleContext Create()
+        {
+            return new VehicleContext();
+        }
+
         public virtual DbSet<VehicleMake> VehicleMake { get; set; }
         public virtual DbSet<VehicleModel> VehicleModel { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<VehicleMake>()
-                .Property(e => e.Name)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<VehicleMake>()
-                .Property(e => e.Abrv)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<VehicleMake>()
-                .HasMany(e => e.VehicleModel)
-                .WithRequired(e => e.VehicleMake)
-                .HasForeignKey(e => e.MakeId)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<VehicleModel>()
-                .Property(e => e.Name)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<VehicleModel>()
-                .Property(e => e.Abrv)
-                .IsUnicode(false);
+            modelBuilder.Configurations.Add(new VehicleModelMap());
+            modelBuilder.Configurations.Add(new VehicleMakeMap());
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

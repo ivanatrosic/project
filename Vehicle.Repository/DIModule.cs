@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ninject.Modules;
-using Ninject;
+﻿using Ninject.Modules;
+using Ninject.Extensions.Factory;
+using Vehicle.Repository.Common;
 
 namespace Vehicle.Repository
 {
 
 
-    public class Bindings : NinjectModule
+    public class DIModule : NinjectModule
     {
         public override void Load()
         {
             Bind<IRepository>().To<Repository>();
             Bind<IVehicleMakeRepository>().To<VehicleMakeRepository>();
             Bind<IUnitOfWork>().To<UnitOfWork>();
+            Bind<IUnitOfWorkFactory>().ToFactory();
         }
     }
 }

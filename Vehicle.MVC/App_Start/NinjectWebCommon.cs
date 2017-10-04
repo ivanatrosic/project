@@ -14,6 +14,11 @@ namespace Vehicle.MVC.App_Start
     using Vehicle.Service;
 
     using System.Data.Entity;
+    using System.Linq;
+    using Vehicle.Models;
+    using Vehicle.DAL;
+    using Vehicle.Repository.Common;
+    using Ninject.Extensions.Factory;
 
     public static class NinjectWebCommon 
     {
@@ -43,7 +48,11 @@ namespace Vehicle.MVC.App_Start
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-            var kernel = new StandardKernel();
+            var settings = new NinjectSettings();
+            settings.LoadExtensions = true;
+            settings.ExtensionSearchPatterns = settings.ExtensionSearchPatterns
+                .Union(new string[] { "Vehicle.*.dll" }).ToArray();
+            var kernel = new StandardKernel(settings);
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
@@ -65,16 +74,21 @@ namespace Vehicle.MVC.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+
             kernel.Bind<IRepository>().To<Repository>();
             kernel.Bind<IVehicleMakeRepository>().To<VehicleMakeRepository>();
             kernel.Bind<IVehicleModelRepository>().To<VehicleModelRepository>();
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
 
-
             kernel.Bind<IVehicleMakeService>().To<VehicleMakeService>();
             kernel.Bind<IVehicleModelService>().To<VehicleModelService>();
 
-
+            kernel.Bind<IVehicleMake>().To<VehicleMakeDTO>();
+            kernel.Bind<IVehicleModel>().To<VehicleModelDTO>();
+            kernel.Bind<IVehicleContext>().To<VehicleContext>();
+            kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
+            kernel.Bind<IUnitOfWorkFactory>().ToFactory();
+            kernel.Bind(typeof(DbContext)).To(typeof(VehicleContext));
 
         }
     }

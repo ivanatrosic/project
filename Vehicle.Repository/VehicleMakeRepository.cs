@@ -7,7 +7,6 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Vehicle.DAL;
-using Vehicle.Repository;
 using AutoMapper;
 using Vehicle.Models;
 using Vehicle.Paging;
@@ -17,25 +16,31 @@ namespace Vehicle.Repository
 {
     public class VehicleMakeRepository : IVehicleMakeRepository
     {
+        #region Properties
         protected IRepository Repository { get; set; }
+        #endregion Properties
+
+
+        #region Constructors
         public VehicleMakeRepository(IRepository repository)
         {
             Repository = repository;
         }
+        #endregion Constructors
 
 
+        #region Methods
         public async Task<IEnumerable<IVehicleMake>> GetAsync(IPagingDetails pagingDetails)
         {
- 
-            if (pagingDetails.Filter != null)
+            try
+            {
+                if (pagingDetails.Filter != null)
             {
                
                  var x = Mapper.Map<IEnumerable<IVehicleMake>>(
                     await Repository.WhereAsync<VehicleMake>()
                       .Where(s => s.Name.Contains(pagingDetails.Filter) ||  s.Abrv.Contains(pagingDetails.Filter))
                       .OrderBy(s => s.Name)
-                      //.Skip(pagingDetails.PageSkip)
-                      //.Take(pagingDetails.PageSize)
                       .ToListAsync<VehicleMake>());
                 return x.ToPagedList(pagingDetails.PageNumber, pagingDetails.PageSize);
 
@@ -48,74 +53,91 @@ namespace Vehicle.Repository
                         .ToListAsync<VehicleMake>());
                 return x.ToPagedList(pagingDetails.PageNumber, pagingDetails.PageSize);
             }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
-        public async Task<IVehicleMake> GetAsync(string id)
+        public async Task<IVehicleMake> GetAsync(Guid? id)
         {
-            return Mapper.Map<IVehicleMake>(await Repository.GetOneAsync<VehicleMake>(id));
+            try
+            {
+                return Mapper.Map<IVehicleMake>(await Repository.GetOneAsync<VehicleMake>(id));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
 
         public Task<int> InsertAsync(IVehicleMake item)
         {
-            return Repository.InsertAsync<VehicleMake>(Mapper.Map<VehicleMake>(item));
+
+            try
+            {
+                return Repository.InsertAsync<VehicleMake>(Mapper.Map<VehicleMake>(item));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
 
         public Task<int> UpdateAsync(IVehicleMake item)
         {
-            return Repository.UpdateAsync <VehicleMake>(Mapper.Map<VehicleMake>(item));
+            try
+            {
+                return Repository.UpdateAsync<VehicleMake>(Mapper.Map<VehicleMake>(item));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public Task<int> DeleteAsync(IVehicleMake item)
         {
-            return Repository.DeleteAsync<VehicleMake>(Mapper.Map<VehicleMake>(item));
+            try
+            {
+                return Repository.DeleteAsync<VehicleMake>(Mapper.Map<VehicleMake>(item));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
-        public Task<int> DeleteAsync(string id)
-        { 
-            return Repository.DeleteAsync<VehicleMake>(id);
+        public Task<int> DeleteAsync(Guid? id)
+        {
+            try
+            {
+                return Repository.DeleteAsync<VehicleMake>(id);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public async Task<IEnumerable<IVehicleMake>> GetAsync()
         {
-            return  Mapper.Map<IEnumerable<IVehicleMake>>(
-                   await Repository.WhereAsync<VehicleMake>()
-                     .OrderBy(s => s.Name)
-                     .ToListAsync<VehicleMake>());
+            try
+            {
+                return Mapper.Map<IEnumerable<IVehicleMake>>(
+                       await Repository.WhereAsync<VehicleMake>()
+                         .OrderBy(s => s.Name)
+                         .ToListAsync<VehicleMake>());
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
-
-
-
-
-
-
-
-        //    public void InsertVehicleMake(VehicleMake vehicleMake)
-        //    {
-        //        context.VehicleMake.Add(vehicleMake);
-        //    }
-
-        //    public void DeleteVehicleMake(int id)
-        //    {
-        //        VehicleMake vehicleMake = context.VehicleMake.Find(id);
-        //        context.VehicleMake.Remove(vehicleMake);
-        //    }
-
-        //    public void UpdateVehicleMake(VehicleMake vehicleMake)
-        //    {
-        //        context.Entry(vehicleMake).State = EntityState.Modified;
-        //    }
-
-        //    public void Save()
-        //    {
-        //        context.SaveChanges();
-        //    }
-
-        //    public void Dispose()
-        //    {
-        //        context.Dispose();
-        //    }
+        #endregion Methods
     }
 }
 

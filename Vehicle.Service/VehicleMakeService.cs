@@ -12,54 +12,109 @@ namespace Vehicle.Service
 {
     public class VehicleMakeService :IVehicleMakeService
     {
+        #region Properties
         protected IVehicleMakeRepository Repository { get; private set; }
+        #endregion Properties
 
+        #region Constructors
         public VehicleMakeService(IVehicleMakeRepository repository)
         {
             Repository = repository;
   
         }
+        #endregion Constructors
 
-        public  Task<int> DeleteAsync(IVehicleMake item)
+
+        #region Methods
+        public Task<int> DeleteAsync(IVehicleMake item)
         {
-            return Repository.DeleteAsync(item);
+            try
+            {
+                return Repository.DeleteAsync(item);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
 
         }
 
 
         public Task<int> InsertAsync(IVehicleMake item)
         {
-            return Repository.InsertAsync(item);
+            try
+            {
+                return Repository.InsertAsync(item);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public Task<int> UpdateAsync(IVehicleMake item)
         {
-            return Repository.UpdateAsync(item);
-            
+            try
+            {
+                return Repository.UpdateAsync(item);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
 
         }
 
 
         public Task<IEnumerable<IVehicleMake>> GetAsync(IPagingDetails pagingDetails)
         {
-            return Repository.GetAsync(pagingDetails);
+            try
+            {
+                return Repository.GetAsync(pagingDetails);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
-        public Task<IVehicleMake> GetAsync(string ID)
+        public Task<IVehicleMake> GetAsync(Guid? ID)
         {
-            return Repository.GetAsync(ID);
+            try
+            {
+                return Repository.GetAsync(ID);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
 
 
-        public Task<int> DeleteAsync(string id)
+        public Task<int> DeleteAsync(Guid? id)
         {
-            return Repository.DeleteAsync(id);
+            try
+            {
+                return Repository.DeleteAsync(id);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public Task<IEnumerable<IVehicleMake>> GetAsync()
         {
-            return Repository.GetAsync();
+            try
+            {
+                return Repository.GetAsync();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
+        #endregion Methods
     }
 }
