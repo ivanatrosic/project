@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Vehicle.DAL;
 using AutoMapper;
 using Vehicle.Models;
-using Vehicle.Paging;
+using Vehicle.Common;
 using PagedList;
 
 namespace Vehicle.Repository

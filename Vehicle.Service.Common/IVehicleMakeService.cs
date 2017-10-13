@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Vehicle.Repository;
-using Vehicle.Paging;
+using Vehicle.Common;
 using Vehicle.Models;
 
 namespace Vehicle.Service

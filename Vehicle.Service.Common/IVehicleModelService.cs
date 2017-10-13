@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vehicle.Models;
-using Vehicle.Paging;
+using Vehicle.Common;
 
 namespace Vehicle.Service
 {
@@ -14,9 +14,9 @@ namespace Vehicle.Service
         Task<int> UpdateAsync(IVehicleModel item);
         Task<int> DeleteAsync(IVehicleModel item);
         Task<int> DeleteAsync(Guid? id);
-        Task<IEnumerable<IVehicleModel>> GetAsync(IPagingDetails pagingDetails);
+        Task<IEnumerable<IVehicleModel>> GetAsync(IPaging paging, IFilter filter);
         Task<IVehicleModel> GetAsync(Guid? ID);
-        Task<IEnumerable<IVehicleModel>> GetByMakeAsync(Guid? makeId, IPagingDetails pagingDetails);
+        Task<IEnumerable<IVehicleModel>> GetByMakeAsync(Guid? makeId, IPaging paging);
 
 
     }

@@ -42,7 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Filter.cs" />
+    <Compile Include="IFilter.cs" />
+    <Compile Include="IPaging.cs" />
     <Compile Include="IPagingDetails.cs" />
+    <Compile Include="Paging.cs" />
     <Compile Include="PagingDetails.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

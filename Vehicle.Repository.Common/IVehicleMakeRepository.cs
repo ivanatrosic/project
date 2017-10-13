@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Vehicle.Models;
 using Vehicle.Repository;
-using Vehicle.Paging;
+using Vehicle.Common;
 
 namespace Vehicle.Repository
 {

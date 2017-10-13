@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Vehicle.Models;
 using Vehicle.MVC.Models;
-using Vehicle.Paging;
+using Vehicle.Common;
 using Vehicle.Service;
 
 namespace Vehicle.MVC.Controllers

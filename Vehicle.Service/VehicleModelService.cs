@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vehicle.Models;
-using Vehicle.Paging;
+using Vehicle.Common;
 using Vehicle.Repository;
 
 namespace Vehicle.Service
@@ -42,11 +42,11 @@ namespace Vehicle.Service
             }
         }
 
-        public Task<IEnumerable<IVehicleModel>> GetByMakeAsync(Guid? makeId, IPagingDetails pagingDetails)
+        public Task<IEnumerable<IVehicleModel>> GetByMakeAsync(Guid? makeId, IPaging paging)
         {
             try
             { 
-            return Repository.GetByMakeAsync(makeId, pagingDetails);
+            return Repository.GetByMakeAsync(makeId, paging);
             }
             catch (Exception e)
             {
@@ -54,11 +54,11 @@ namespace Vehicle.Service
             }
         }
 
-        public Task<IEnumerable<IVehicleModel>> GetAsync(IPagingDetails pagingDetails)
+        public Task<IEnumerable<IVehicleModel>> GetAsync(IPaging paging, IFilter filter)
         {
             try
             { 
-            return Repository.GetAsync(pagingDetails);
+            return Repository.GetAsync(paging, filter);
             }
             catch (Exception e)
             {

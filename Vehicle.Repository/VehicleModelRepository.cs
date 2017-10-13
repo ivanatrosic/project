@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vehicle.Models;
-using Vehicle.Paging;
+using Vehicle.Common;
 using AutoMapper;
 using Vehicle.DAL;
 using System.Data.Entity;
@@ -48,7 +48,7 @@ namespace Vehicle.Repository
             }
         }
 
-        public async Task<IEnumerable<IVehicleModel>> GetByMakeAsync(Guid? makeId, IPagingDetails pagingDetails)
+        public async Task<IEnumerable<IVehicleModel>> GetByMakeAsync(Guid? makeId, IPaging pagingDetails)
         {
             try
             {
@@ -65,18 +65,18 @@ namespace Vehicle.Repository
             }
         }
 
-        public async Task<IEnumerable<IVehicleModel>> GetAsync(IPagingDetails pagingDetails)
+        public async Task<IEnumerable<IVehicleModel>> GetAsync(IPaging paging, IFilter filter)
         {
             try
             {
-                if (pagingDetails.Filter != null)
+                if (filter.FilterTherm != null)
             {
                 var x = Mapper.Map<IEnumerable<IVehicleModel>>(
                    await Repository.WhereAsync<VehicleModel>()
-                     .Where(s => s.Name.Contains(pagingDetails.Filter) || s.Abrv.Contains(pagingDetails.Filter))
+                     .Where(s => s.Name.Contains(filter.FilterTherm) || s.Abrv.Contains(filter.FilterTherm))
                      .OrderBy(s => s.Name)
                      .ToListAsync<VehicleModel>());
-                return x.ToPagedList(pagingDetails.PageNumber, pagingDetails.PageSize);
+                return x.ToPagedList(paging.PageNumber, paging.PageSize);
             }
             else
             {
@@ -84,7 +84,7 @@ namespace Vehicle.Repository
                    await Repository.WhereAsync<VehicleModel>()
                         .OrderBy(s => s.Name)
                         .ToListAsync<VehicleModel>());
-                return x.ToPagedList(pagingDetails.PageNumber, pagingDetails.PageSize);
+                return x.ToPagedList(paging.PageNumber, paging.PageSize);
             }
             }
             catch (Exception e)

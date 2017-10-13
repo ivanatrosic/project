@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Linq.Expressions;
 using Vehicle.DAL;
-using Vehicle.Paging;
+using Vehicle.Common;
 using Vehicle.Repository.Common;
 
 namespace Vehicle.Repository

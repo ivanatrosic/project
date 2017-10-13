@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Vehicle.Common
 {
-    public class PagingDetails : IPagingDetails 
+    public class Paging : IPaging
     {
         #region Properties
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
         public int PageSkip { get; set; }
-        public string Filter { get; set; }
         #endregion Properties
 
         #region Variables
@@ -21,12 +21,9 @@ namespace Vehicle.Common
 
 
         #endregion Variables
-        //public PagingDetails()
-        //    : this(null, 1, 5)
-        //{
-        //}
+
         #region Methods
-        public PagingDetails(string Filter, int pageNumber, int pageSize)
+        public Paging( int pageNumber, int pageSize)
         {
             try
             {
@@ -36,10 +33,9 @@ namespace Vehicle.Common
                     this.PageSize = DefaultPageSize;
 
                 }
-                    this.PageNumber = pageNumber;
-                    this.PageSize = pageSize;
-            this.PageSkip = PageSize * (PageNumber - 1);
-            this.Filter = Filter;
+                this.PageNumber = pageNumber;
+                this.PageSize = pageSize;
+                this.PageSkip = PageSize * (PageNumber - 1);
             }
             catch (ArgumentException e)
             {
@@ -47,6 +43,5 @@ namespace Vehicle.Common
             }
         }
         #endregion Methods
-
     }
 }

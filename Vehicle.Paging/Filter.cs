@@ -6,10 +6,15 @@ using System.Threading.Tasks;
 
 namespace Vehicle.Common
 {
-    class Program
+    public class Filter : IFilter
     {
-        static void Main(string[] args)
+        public string FilterTherm { get; set; }
+
+        public Filter (string filterTherm)
         {
+            FilterTherm = filterTherm;
+
         }
+
     }
 }

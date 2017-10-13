@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vehicle.Paging
+namespace Vehicle.Common
 {
     public interface IPagingDetails
     {

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Vehicle.Models;
 using Vehicle.MVC.Models;
-using Vehicle.Paging;
+using Vehicle.Common;
 using Vehicle.Service;
 
 namespace Vehicle.MVC.Controllers
@@ -32,8 +32,9 @@ namespace Vehicle.MVC.Controllers
         {
             try
             {
-                PagingDetails pagingDetails = new PagingDetails(Filter, pageNumber, pageSize);
-                var x = Mapper.Map<IEnumerable<VehicleModelData>>(await VMService.GetAsync(pagingDetails));
+                Paging paging = new Paging(pageNumber, pageSize);
+                Filter filter = new Filter(Filter);
+                var x = Mapper.Map<IEnumerable<VehicleModelData>>(await VMService.GetAsync(paging, filter));
                 if (x == null)
                 {
                     return Request.CreateResponse(HttpStatusCode.NotFound);
@@ -56,8 +57,8 @@ namespace Vehicle.MVC.Controllers
         {
             try
             { 
-            PagingDetails pagingDetails = new PagingDetails(null, pageNumber, pageSize);
-            var x = Mapper.Map<IEnumerable<VehicleModelData>>(await VMService.GetByMakeAsync(makeId, pagingDetails));
+            Paging paging = new Paging( pageNumber, pageSize);
+            var x = Mapper.Map<IEnumerable<VehicleModelData>>(await VMService.GetByMakeAsync(makeId, paging));
 
             if (x == null)
             {

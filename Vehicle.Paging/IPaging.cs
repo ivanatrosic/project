@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Vehicle.Common
+
 {
-    class Program
+    public interface IPaging
     {
-        static void Main(string[] args)
-        {
-        }
+        int PageNumber { get; set; }
+        int PageSize { get; set; }
+        int PageSkip { get; set; }
     }
 }
