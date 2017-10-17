@@ -56,14 +56,9 @@ namespace Vehicle.Service
 
         public Task<IEnumerable<IVehicleModel>> GetAsync(IPaging paging, IFilter filter)
         {
-            try
-            { 
+
             return Repository.GetAsync(paging, filter);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+
         }
 
         public Task<IVehicleModel> GetAsync(Guid? Id)
