@@ -15,27 +15,28 @@ namespace Vehicle.Service.Tests
     public class VehicleModelServiceTest
     {
         private List<IVehicleModel> VehicleModel;
-        private List<IVehicleModel> VehicleModelfilter;
 
-
-        public VehicleModelServiceTest ()
+      
+        internal List<IVehicleModel> GenerateVehicleModel (int a, string filter)
         {
-            VehicleModel = new List<IVehicleModel>()
+            VehicleModel = new List<IVehicleModel>();
+            for (int i=1; i<=a; i++)
             {
-                new VehicleModelDTO { Id=Guid.NewGuid(), MakeId=new Guid("fc0f68a9-7976-40c0-b751-1175597aef6d"), Name="Golf2", Abrv="g2"},
-                new VehicleModelDTO { Id=Guid.NewGuid(), MakeId=new Guid("fc0f68a9-7976-40c0-b751-1175597aef6d"), Name="Golf3", Abrv="g3"},
-                new VehicleModelDTO { Id=Guid.NewGuid(), MakeId=Guid.NewGuid(), Name="Q5", Abrv="a"},
-                new VehicleModelDTO { Id=Guid.NewGuid(), MakeId=Guid.NewGuid(), Name="Q7", Abrv="a"},
-            };
+                var item = new VehicleModelDTO
+                {
+                    Id = new Guid(a, 0, 0, new byte[8]),
+                    MakeId = new Guid("fc0f68a9-7976-40c0-b751-1175597aef6d"),
+                    Name = "A"+filter,
+                    Abrv = ""
+                };
+                VehicleModel.Add(item);
 
-            VehicleModelfilter = new List<IVehicleModel>()
-            {
-                new VehicleModelDTO { Id=Guid.NewGuid(), MakeId=new Guid("fc0f68a9-7976-40c0-b751-1175597aef6d"), Name="Golf2", Abrv="g2"},
-                new VehicleModelDTO { Id=Guid.NewGuid(), MakeId=new Guid("fc0f68a9-7976-40c0-b751-1175597aef6d"), Name="Golf3", Abrv="g3"},
-
-            };
+            }
+            return VehicleModel;
 
         }
+
+
 
         [Fact]
         public async  void GetAsync_with_filter()
@@ -43,17 +44,17 @@ namespace Vehicle.Service.Tests
             //Arrange
             var mock = new Mock<IVehicleModelRepository>();
             //setup Mock
-            mock.Setup(m => m.GetAsync(It.Is<Paging>(s => s.PageNumber==1 && s.PageSize==4), It.Is<Filter>(s => s.FilterTherm=="Golf")))
-                .ReturnsAsync(VehicleModelfilter);
+            mock.Setup(m => m.GetAsync(It.Is<Paging>(s => s.PageNumber==1 && s.PageSize==4), It.Is<Filter>(s => s.FilterTherm=="golf")))
+                .ReturnsAsync(GenerateVehicleModel(4, "golf"));
 
             var service =  new VehicleModelService(mock.Object);
 
             //Act
-            var result = await service.GetAsync(new Paging(1,4), new Filter("Golf"));
+            var result = await service.GetAsync(new Paging(1,4), new Filter("golf"));
 
             //Assert
             result.Should().NotBeNull();
-            result.ShouldAllBeEquivalentTo(VehicleModelfilter);
+            result.ShouldAllBeEquivalentTo(GenerateVehicleModel(4, "golf"));
 
         }
 
@@ -65,7 +66,7 @@ namespace Vehicle.Service.Tests
             var mock = new Mock<IVehicleModelRepository>();
             //setup Mock
             mock.Setup(m => m.GetAsync(It.Is<Paging>(s => s.PageNumber == 1 && s.PageSize == 4), It.Is<Filter>(s => s.FilterTherm == "")))
-                .ReturnsAsync(VehicleModel);
+                .ReturnsAsync(GenerateVehicleModel(4, ""));
 
             var service = new VehicleModelService(mock.Object);
 
@@ -74,7 +75,7 @@ namespace Vehicle.Service.Tests
 
             //Assert
             result.Should().NotBeNull();
-            result.ShouldAllBeEquivalentTo(VehicleModel);
+            result.ShouldAllBeEquivalentTo(GenerateVehicleModel(4, ""));
 
         }
 
@@ -85,7 +86,7 @@ namespace Vehicle.Service.Tests
             var mock = new Mock<IVehicleModelRepository>();
             //setup Mock
             mock.Setup(m => m.GetByMakeAsync(It.Is<Guid>(g => g == new Guid("fc0f68a9-7976-40c0-b751-1175597aef6d")), It.Is<Paging>(s => s.PageNumber == 1 && s.PageSize == 4)))
-                .ReturnsAsync(VehicleModelfilter);
+                .ReturnsAsync(GenerateVehicleModel(2, ""));
 
             var service = new VehicleModelService(mock.Object);
 
@@ -94,7 +95,7 @@ namespace Vehicle.Service.Tests
 
             //Assert
             result.Should().NotBeNull();
-            result.ShouldAllBeEquivalentTo(VehicleModelfilter);
+            result.ShouldAllBeEquivalentTo(GenerateVehicleModel(2, ""));
 
         }
 
